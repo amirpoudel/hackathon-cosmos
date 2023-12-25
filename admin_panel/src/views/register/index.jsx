@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { toast } from 'react-toastify';
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -25,7 +27,7 @@ import { registerRestaurantAsync } from 'src/redux/authSlice';
 
 // ----------------------------------------------------------------------
 
-export default function LoginView() {
+export default function RegisterView() {
   const dispatch = useDispatch();
   const [restaurantName, setRestaurantName] = useState('');
   const [restaurantUserName, setRestaurantUserName] = useState('');
@@ -42,6 +44,20 @@ export default function LoginView() {
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      toast.error('Password did not match!', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
+
     const data = {
       restaurantName,
       restaurantUserName,

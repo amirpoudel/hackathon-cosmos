@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 import { BASE_URL } from 'src/config/base_url';
 
 const initialState = {
@@ -22,13 +24,33 @@ export const loginRestaurantAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = axios.post(`${BASE_URL}/user/login`);
+      const response = axios.post(`${BASE_URL}/user/login`, data);
       if (response.status === 200) {
+        toast.success('🍜 Login Success !', {
+          position: 'top-right',
+          autoClose: 1200,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
         return response.data;
       }
       return '';
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Login';
+      toast.error(errorMessage, {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       return rejectWithValue(errorMessage);
     }
   }
@@ -40,13 +62,33 @@ export const registerRestaurantAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     try {
-      const response = axios.post(`${BASE_URL}/user/register`);
+      const response = axios.post(`${BASE_URL}/user/register`, data);
       if (response.status === 200) {
+        toast.success('🍜 Registration Success  !', {
+          position: 'top-right',
+          autoClose: 1200,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
         return response.data;
       }
       return '';
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Register';
+      toast.success(errorMessage, {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       return rejectWithValue(errorMessage);
     }
   }
@@ -57,11 +99,31 @@ export const logoutAsync = createAsyncThunk('auth/logoutAsync', async (_, { reje
   try {
     const response = axios.post(`${BASE_URL}/logout`);
     if (response.status === 200) {
+      toast.success('🍜 Logout Success  !', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       return response.data;
     }
     return '';
   } catch (err) {
     const errorMessage = err?.response?.data?.message || 'Unable To Logout';
+    toast.success(errorMessage, {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
     return rejectWithValue(errorMessage);
   }
 });
