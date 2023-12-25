@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -20,9 +21,12 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 
+import { registerRestaurantAsync } from 'src/redux/authSlice';
+
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
+  const dispatch = useDispatch();
   const [restaurantName, setRestaurantName] = useState('');
   const [restaurantUserName, setRestaurantUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -48,7 +52,7 @@ export default function LoginView() {
       confirmPassword,
     };
 
-    console.log('registration data', data);
+    dispatch(registerRestaurantAsync(data));
   };
 
   return (
@@ -69,11 +73,7 @@ export default function LoginView() {
         }}
       />
 
-      <Stack
-        alignItems="center"
-        justifyContent="center"
-        sx={{ height: 1, border: '2px solid red' }}
-      >
+      <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
         <form onSubmit={handleRegister}>
           <Card
             sx={{

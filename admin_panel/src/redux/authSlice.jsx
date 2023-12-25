@@ -22,7 +22,7 @@ export const loginRestaurantAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = axios.post(`${BASE_URL}/login`);
+      const response = axios.post(`${BASE_URL}/user/login`);
       if (response.status === 200) {
         return response.data;
       }
@@ -40,7 +40,7 @@ export const registerRestaurantAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     try {
-      const response = axios.post(`${BASE_URL}/register`);
+      const response = axios.post(`${BASE_URL}/user/register`);
       if (response.status === 200) {
         return response.data;
       }
