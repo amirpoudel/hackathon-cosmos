@@ -3,8 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const errorHandler = require('./utils/errorHandler.js');
+const { initializeObjectPrototype } = require('./utils/prototype/object.prototype.js');
 
 const app =  express();
+
+//init object prototype
+initializeObjectPrototype();
 
 app.use(cors({
     origin:process.env.CORS_ORIGIN,
@@ -18,6 +22,7 @@ app.use(cors({
 
 //routes
 const userRouter = require("./routes/user.route.js");
+
 
 app.use("/api/v1/user",userRouter)
 
