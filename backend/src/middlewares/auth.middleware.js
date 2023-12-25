@@ -16,6 +16,7 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
         // can find user form db and attach to req
         // find user from db
         const user = await User.findById(decode._id);
+    
         if(!user){
             throw new ApiError(401,"Invalid Token")
         }

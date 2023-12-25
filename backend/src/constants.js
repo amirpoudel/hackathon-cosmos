@@ -8,7 +8,15 @@ const ROLES = {
     CASHIER:"cashier",
 }
 
+const TABLE_STATUS = {
+    AVAILABLE:"available",
+    OCCUPIED:"occupied",
+    RESERVED:"reserved",
+    UNAVAILABLE:"unavailable"
+}
+
 
 module.exports = {
-    ROLES
+    ROLES,
+    TABLE_STATUS
 }

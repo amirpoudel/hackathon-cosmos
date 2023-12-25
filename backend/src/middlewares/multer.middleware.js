@@ -1,6 +1,7 @@
 
 const multer = require("multer");
 const fs = require("fs");
+const path = require("path");
 
 
 // Function to ensure the destination directory exists
@@ -14,7 +15,7 @@ const ensureDestinationDirectory = (destination) => {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        const destinationPath = "./public/temp/images"; // Relative path for demonstration
+        const destinationPath = "./public/temp/images/"; // Relative path for demonstration
         ensureDestinationDirectory(destinationPath);
         cb(null, destinationPath);
     },
