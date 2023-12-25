@@ -14,9 +14,10 @@ import 'src/global.css';
 import DashboardLayout from './layouts/dashboard';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
+export const TablePage = lazy(() => import('src/pages/table'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
-export const UserPage = lazy(() => import('src/pages/user'));
-export const OrderPage = lazy(() => import('src/pages/orders'));
+export const ItemListPage = lazy(() => import('src/pages/item_page'));
+export const OrderPage = lazy(() => import('src/pages/orders_page'));
 export const MenuPage = lazy(() => import('src/pages/menu'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const RegisterPage = lazy(() => import('src/pages/register_page'));
@@ -30,10 +31,11 @@ export default function App() {
     createRoutesFromElements(
       <Route path="/" element={<DashboardLayout />}>
         <Route index element={<IndexPage />} />
-        <Route path="/user" element={<UserPage />} />
+        <Route path="/itemlist" element={<ItemListPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/table" element={<TablePage />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import {
+  Card,
+  Typography,
+  CardMedia,
+  Box,
+  CardActions,
+  IconButton,
+  styled,
+  Collapse,
+  CardContent,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import PropTypes from 'prop-types'; // Import PropTypes
-
-import { Card, Typography, CardMedia, Box } from '@mui/material';
+const ExpandMore = styled((props) => {
+  const { ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 function FoodCard({ imagePreview, description, price, foodName }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <Card
       sx={{
+        m: 1,
         maxWidth: 345,
         width: '100%',
         position: 'relative',
@@ -61,18 +88,31 @@ function FoodCard({ imagePreview, description, price, foodName }) {
         </Box>{' '}
       </Box>
 
-      {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
+      <CardActions disableSpacing sx={{ padding: '0' }}>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+          sx={{ padding: '0' }}
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>{description}</Typography>
+        </CardContent>
+      </Collapse>
     </Card>
   );
 }
+
 FoodCard.propTypes = {
-  foodName: PropTypes.string, // Example validation for foodName
-  price: PropTypes.number, // Example validation for price
-  description: PropTypes.string, // Example validation for description
-  imagePreview: PropTypes.string, // Example validation for imagePreview
+  foodName: PropTypes.string,
+  price: PropTypes.number,
+  description: PropTypes.string,
+  imagePreview: PropTypes.string,
 };
 
 export default FoodCard;

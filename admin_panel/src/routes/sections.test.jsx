@@ -6,7 +6,7 @@ import DashboardLayout from 'src/layouts/dashboard';
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
-export const OrderPage = lazy(() => import('src/pages/orders'));
+export const OrderPage = lazy(() => import('src/pages/orders_page'));
 export const MenuPage = lazy(() => import('src/pages/menu'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));

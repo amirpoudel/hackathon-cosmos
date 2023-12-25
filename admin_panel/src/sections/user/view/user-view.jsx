@@ -15,11 +15,11 @@ import { users } from 'src/_mock/user';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
-import TableNoData from '../table-no-data';
-import UserTableRow from '../user-table-row';
-import UserTableHead from '../user-table-head';
-import TableEmptyRows from '../table-empty-rows';
-import UserTableToolbar from '../user-table-toolbar';
+import TableNoData from '../component/table-no-data';
+import UserTableRow from '../component/user-table-row';
+import UserTableHead from '../component/user-table-head';
+import TableEmptyRows from '../component/table-empty-rows';
+import UserTableToolbar from '../component/user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
 // ----------------------------------------------------------------------

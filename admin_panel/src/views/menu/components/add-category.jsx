@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { addNewCategory, fetchCategoryList } from 'src/redux/menuSlice';
+import { addNewCategoryAsync } from 'src/redux/menuSlice';
 
 function AddCategory() {
   const dispatch = useDispatch();
   const [category, setCategory] = useState('');
   const handleCategorySubmit = (e) => {
     e.preventDefault();
-    dispatch(addNewCategory(category)).then((res) => {
-      if (addNewCategory.fulfilled.match(res)) {
-        dispatch(fetchCategoryList());
+    const data = {
+      category,
+      categoryDescription: '',
+    };
+    dispatch(addNewCategoryAsync(data)).then((res) => {
+      if (addNewCategoryAsync.fulfilled.match(res)) {
         setCategory('');
       }
     });

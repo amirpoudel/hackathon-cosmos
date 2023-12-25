@@ -12,7 +12,6 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -24,6 +23,9 @@ import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 
 import { registerRestaurantAsync } from 'src/redux/authSlice';
+// import { action } from 'src/theme/palette';
+import { useRouter } from 'src/routes/hooks';
+import { Button } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +43,7 @@ export default function RegisterView() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const theme = useTheme();
+  const router = useRouter();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -68,7 +71,11 @@ export default function RegisterView() {
       confirmPassword,
     };
 
-    dispatch(registerRestaurantAsync(data));
+    dispatch(registerRestaurantAsync(data)).then((res) => {
+      if (registerRestaurantAsync.fulfilled.match(res)) {
+        router.push('/login');
+      }
+    });
   };
 
   return (
@@ -219,7 +226,7 @@ export default function RegisterView() {
               Forgot password?
             </Link>
           </Stack> */}
-            <LoadingButton
+            <Button
               fullWidth
               size="large"
               type="submit"
@@ -228,7 +235,7 @@ export default function RegisterView() {
               sx={{ my: 3 }}
             >
               Register
-            </LoadingButton>
+            </Button>
           </Card>
         </Stack>
       </form>
