@@ -9,9 +9,10 @@ const {generateAccessAndRefreshTokens} = require("../utils/auth")
 
 const registerOwnerAndRestaurant = asyncHandler(async (req,res,next)=>{
 
-    const {restaurantName,restaurantUsername,ownerName,ownerEmail,ownerPhoneNumber,password} = req.body;
+    const {restaurantName,restaurantUserName,ownerName,ownerEmail,ownerPhoneNumber,password} = req.body;
+    console.log(req.body);
 
-    if(!restaurantName || !restaurantUsername){
+    if(!restaurantName || !restaurantUserName){
         throw new ApiError(400,"Please Provide Restaurant Information");
     }
 
@@ -27,7 +28,8 @@ const registerOwnerAndRestaurant = asyncHandler(async (req,res,next)=>{
 
     const restaurant = await  Restaurant.create({
         name:restaurantName,
-        username:restaurantUsername,
+        username:restaurantUserName,
+
     })
     if(!restaurant){
         throw new ApiError(500,"Unable To Register")
@@ -76,13 +78,14 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const userResponse = user
         .toObject()
-        .excludeProperties(['password', 'refreshToken', 'updatedAt']);
+        .excludeProperties(['password', 'refreshToken', 'updatedAt','restaurantId']);
 
     const options = {
         httpOnly: true,
         secure: true,
     };
 
+    console.log("User Logged In Successfully",userResponse)
     return res
         .status(200)
         .cookie('refreshToken', refreshToken, options)

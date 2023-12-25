@@ -22,9 +22,13 @@ app.use(cors({
 
 //routes
 const userRouter = require("./routes/user.route.js");
+const menuRouter = require("./routes/menu.route.js");
+const tableRouter = require("./routes/table.route.js");
 
 
 app.use("/api/v1/user",userRouter)
+app.use("/api/v1/menu",menuRouter)
+app.use("/api/v1/table",tableRouter)
 
 
 app.use(errorHandler)
