@@ -54,14 +54,14 @@ const restaurantSchema = new mongoose.Schema({
         type: String,
         trim: true,
         lowercase: true,
-        unique: true,
+        
     },
     contact:[
         {
             type:String,
             trim:true,
             lowercase:true,
-            unique:true
+           
         }
     ],
     address:addressSchema,
