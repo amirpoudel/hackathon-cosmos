@@ -20,6 +20,9 @@ const tableSchema = new mongoose.Schema({
         type:String,
     }
     
+},{
+    timestamps:true
+
 })
 
 
