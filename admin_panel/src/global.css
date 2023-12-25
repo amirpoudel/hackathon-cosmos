@@ -1,0 +1,14 @@
+/* scrollbar */
+@import 'simplebar-react/dist/simplebar.min.css';
+
+.button__color--orange {
+  /* background-color: #fabc32 !important; */
+  background-color: #212b36 !important;
+  color: white !important;
+}
+
+.button__color--orange:hover {
+  /* background-color: #dba630 !important; */
+  background-color: #303e4d !important;
+  rotate: 5deg !important;
+}

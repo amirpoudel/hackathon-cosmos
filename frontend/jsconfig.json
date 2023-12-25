@@ -1,0 +1,9 @@
+//This setting sets the base directory for resolving non-relative module names in JavaScript. If you have import statements in your JavaScript code, the baseUrl is used to determine the starting point for resolving those imports.
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["./src/*"]
+    }
+  }
+}
