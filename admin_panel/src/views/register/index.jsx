@@ -73,8 +73,8 @@ export default function LoginView() {
         }}
       />
 
-      <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
-        <form onSubmit={handleRegister}>
+      <form onSubmit={handleRegister}>
+        <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
           <Card
             sx={{
               p: 5,
@@ -214,8 +214,8 @@ export default function LoginView() {
               Register
             </LoadingButton>
           </Card>
-        </form>
-      </Stack>
+        </Stack>
+      </form>
     </Box>
   );
 }
