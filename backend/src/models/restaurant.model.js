@@ -1,12 +1,11 @@
 
 const mongoose = require('mongoose');
+const { addressSchema } = require('./commonSchema');
 
 const restaurantSchema = new mongoose.Schema({
-    tenantId:{
+    ownerId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
-        required:true,
-
     },
     name: {
         type: String,

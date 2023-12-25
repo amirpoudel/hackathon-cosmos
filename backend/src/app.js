@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const errorHandler = require('./utils/errorHandler.js');
 
 const app =  express();
 
@@ -16,7 +17,12 @@ app.use(cors({
   app.use(cookieParser())
 
 //routes
+const userRouter = require("./routes/user.route.js");
 
+app.use("/api/v1/user",userRouter)
+
+
+app.use(errorHandler)
 
 
 
