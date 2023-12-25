@@ -37,13 +37,15 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
     "react-hook-form": "^7.47.0",
     "react-redux": "^8.1.3",
     "react-router-dom": "^6.16.0",
     "react-toastify": "^9.1.3",
-    "simplebar-react": "^3.2.4"
+    "simplebar-react": "^3.2.4",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.4.0",

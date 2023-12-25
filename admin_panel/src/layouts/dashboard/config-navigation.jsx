@@ -28,6 +28,11 @@ const navConfig = [
     icon: icon('ic_order'),
   },
   {
+    title: 'table',
+    path: '/table',
+    icon: icon('ic_table'),
+  },
+  {
     title: 'login',
     path: '/login',
     icon: icon('ic_lock'),
