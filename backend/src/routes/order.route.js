@@ -18,4 +18,7 @@ router.route("/")
 router.route("/payment")
     .patch(verifyJWT,verifyRole(ROLES.ADMIN),order.updateOrderPaymentStatus)
 
+router.route("/dayAmount")
+    .get(verifyJWT,verifyRole(ROLES.ADMIN),order.getDayTotalOrderAmount)
+
 module.exports = router;
