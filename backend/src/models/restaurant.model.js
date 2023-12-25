@@ -77,6 +77,9 @@ const restaurantSchema = new mongoose.Schema({
         default:"active"
     },
    
+},{
+    timestamps:true
+
 });
 
 
