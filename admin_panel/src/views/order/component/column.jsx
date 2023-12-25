@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-import { columnsFromBackend } from './KanbanData';
+import { columnsFromBackend } from './board';
 
 import TaskCard from './task_card';
 
