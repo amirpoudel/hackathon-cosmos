@@ -7,7 +7,7 @@ function TablePage() {
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> Table | Minimal UI </title>
       </Helmet>
       <TableView />
     </>
