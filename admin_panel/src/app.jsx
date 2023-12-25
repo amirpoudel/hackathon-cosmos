@@ -19,6 +19,7 @@ export const UserPage = lazy(() => import('src/pages/user'));
 export const OrderPage = lazy(() => import('src/pages/orders'));
 export const MenuPage = lazy(() => import('src/pages/menu'));
 export const LoginPage = lazy(() => import('src/pages/login'));
+export const RegisterPage = lazy(() => import('src/pages/register_page'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/404" element={<Page404 />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Route>
