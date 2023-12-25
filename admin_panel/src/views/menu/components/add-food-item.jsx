@@ -15,9 +15,9 @@ import {
   Select,
 } from '@mui/material';
 
-import FoodCard from './food_card';
+import FoodCard from '../../../components/cards/food_card';
 
-import { addNewFoodItem, fetchCategoryList } from '../../../redux/menuSlice';
+import { addNewFoodItem, fetchCategoryListAsync } from '../../../redux/menuSlice';
 
 function AddFoodItem() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function AddFoodItem() {
   const categoryListError = useSelector((state) => state.menu.categoryListError);
   const categoryList = useSelector((state) => state.menu.categoryList);
   useEffect(() => {
-    dispatch(fetchCategoryList());
+    dispatch(fetchCategoryListAsync());
   }, [dispatch]);
 
   const handleAddFood = (e) => {

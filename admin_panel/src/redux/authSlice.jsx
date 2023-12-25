@@ -5,7 +5,10 @@ import { toast } from 'react-toastify';
 import { BASE_URL } from 'src/config/base_url';
 
 const initialState = {
-  user: null,
+  userName: '',
+  userEmail: '',
+  userPhone: '',
+
   isAuthenticated: false,
   role: '',
 
@@ -142,8 +145,15 @@ const authSlice = createSlice({
         state.isLoginLoading = true;
       })
       .addCase(loginRestaurantAsync.fulfilled, (state, action) => {
-        state.isLoginLoading = false;
-        state.isAuthenticated = true;
+        const userData = action.payload?.data?.user;
+        if (userData) {
+          state.isLoginLoading = false;
+          state.isAuthenticated = true;
+          state.role = userData?.role;
+          state.userName = userData?.name;
+          state.userEmail = userData?.email;
+          state.userPhone = userData?.phone;
+        }
       })
       .addCase(loginRestaurantAsync.rejected, (state, action) => {
         state.isLoginLoading = false;
@@ -155,7 +165,6 @@ const authSlice = createSlice({
       })
       .addCase(registerRestaurantAsync.fulfilled, (state, action) => {
         state.isRegisterLoading = false;
-        state.isAuthenticated = true;
       })
       .addCase(registerRestaurantAsync.rejected, (state, action) => {
         state.isRegisterLoading = false;

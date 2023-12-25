@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
+import { Button } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -19,24 +19,31 @@ import { bgGradient } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
+
 import { loginRestaurantAsync } from 'src/redux/authSlice';
+import { useRouter } from 'src/routes/hooks';
 
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
   const theme = useTheme();
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [ownerPhoneNumber, setOwnerPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
   function handleLogin() {
     const data = {
-      ownerPhoneNumber,
+      phoneNumber,
       password,
     };
-    dispatch(loginRestaurantAsync(data));
+    dispatch(loginRestaurantAsync(data)).then((res) => {
+      if (loginRestaurantAsync.fulfilled.match(res)) {
+        router.push('/');
+      }
+    });
   }
 
   return (
@@ -83,12 +90,12 @@ export default function LoginView() {
 
             <Stack spacing={3}>
               <TextField
-                name="ownerPhoneNumber"
+                name="phoneNumber"
                 label="Phone Number"
                 fullWidth
                 required
-                value={ownerPhoneNumber}
-                onChange={(e) => setOwnerPhoneNumber(e.target.value)}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
 
               <TextField
@@ -111,7 +118,7 @@ export default function LoginView() {
               />
             </Stack>
 
-            <LoadingButton
+            <Button
               fullWidth
               size="large"
               type="submit"
@@ -120,7 +127,7 @@ export default function LoginView() {
               sx={{ my: 3 }}
             >
               Login
-            </LoadingButton>
+            </Button>
           </Card>{' '}
         </Stack>
       </form>
