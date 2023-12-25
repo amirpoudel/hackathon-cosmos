@@ -5,6 +5,7 @@ const ApiResponse = require("../utils/ApiResponse");
 const { Restaurant } = require('../models/restaurant.model');
 const { User } = require('../models/user.model');
 const { ROLES } = require('../constants');
+const {generateAccessAndRefreshTokens} = require("../utils/auth")
 
 const registerOwnerAndRestaurant = asyncHandler(async (req,res,next)=>{
 
@@ -54,10 +55,54 @@ const registerOwnerAndRestaurant = asyncHandler(async (req,res,next)=>{
 
 
 
+const loginUser = asyncHandler(async (req, res) => {
+    const {phoneNumber, password } = req.body;
+
+    // check if employee exist
+    const user = await User.findOne({
+        phone:phoneNumber
+    });
+    if (!user) {
+        throw new ApiError(404, 'Invalid Phone or Password');
+    }
+
+    const isPasswordMatch = await user.comparePassword(password);
+    if (!isPasswordMatch) {
+        throw new ApiError(404, 'Invalid Phone or Password');
+    }
+
+    //generate token
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user);
+
+    const userResponse = user
+        .toObject()
+        .excludeProperties(['password', 'refreshToken', 'updatedAt']);
+
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
+
+    return res
+        .status(200)
+        .cookie('refreshToken', refreshToken, options)
+        .cookie('accessToken', accessToken, options)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    user: userResponse,
+                },
+                'User logged in successfully'
+            )
+        );
+});
+
 
 
 const user = {
-    registerOwnerAndRestaurant
+    registerOwnerAndRestaurant,
+    loginUser
 }
 module.exports = user;
 
