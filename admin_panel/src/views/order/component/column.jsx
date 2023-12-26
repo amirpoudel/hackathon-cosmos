@@ -105,7 +105,7 @@ function Column() {
 
       console.log('removed', removed);
       console.log('dest col', destColumn);
-      if (destColumn === 'paid') {
+      if (destColumn.title === 'paid') {
         const data = {
           orderId: removed._id,
           paymentStatus: destColumn.title,
