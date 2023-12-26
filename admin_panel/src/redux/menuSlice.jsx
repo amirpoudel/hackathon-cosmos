@@ -7,20 +7,7 @@ import { BASE_URL } from '../config/base_url';
 const initialState = {
   isCategoryListLoading: false,
   categoryListError: null,
-  categoryList: [
-    {
-      _id: 1,
-      name: 'all',
-    },
-    {
-      _id: 2,
-      name: 'category1',
-    },
-    {
-      _id: 3,
-      name: 'category2',
-    },
-  ],
+  categoryList: [],
 
   // states when adding new category
   isCategoryLoading: false,
@@ -102,7 +89,25 @@ export const fetchCategoryListAsync = createAsyncThunk(
       const response = await axios.get(`${BASE_URL}/menu/category`, {
         withCredentials: true,
       });
-      console.log(response)
+      console.log(response);
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      const errorMessage = err?.response?.data?.message || 'Something went wrong';
+      return rejectWithValue(errorMessage);
+    }
+    return undefined;
+  }
+);
+export const fetchFoodItemListAsync = createAsyncThunk(
+  'menu/fetchFoodItemListAsync',
+  async ({ categoryId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/menu/item`, categoryId, {
+        withCredentials: true,
+      });
+      console.log(response);
       if (response.status === 200) {
         return response.data;
       }

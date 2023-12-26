@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Typography, Card, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -8,7 +9,7 @@ import { fetchCategoryListAsync } from 'src/redux/menuSlice';
 
 import CategoryItem from './category_item';
 
-function CategoryList() {
+function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.menu.categoryList);
 
@@ -16,7 +17,6 @@ function CategoryList() {
     dispatch(fetchCategoryListAsync());
   }, [dispatch]);
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState('');
   const [selectedCategoryName, setSelectedCategoryName] = useState('all');
 
   function filterCategoryItem(id, name) {
@@ -75,3 +75,8 @@ function CategoryList() {
 }
 
 export default CategoryList;
+
+CategoryList.propTypes = {
+  selectedCategoryId: PropTypes.any,
+  setSelectedCategoryId: PropTypes.func,
+};
