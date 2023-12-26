@@ -6,68 +6,7 @@ import { BASE_URL } from '../config/base_url';
 
 const initialState = {
   isTableListLoading: false,
-  tableList: [
-    {
-      _id: '6589d99d04aebb7f750aaa8c',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableNumber: 1,
-      restaurantUsername: 'hamrolumbini',
-      orderCount: 0,
-      totalAmount: 0,
-      paidAmount: 0,
-      unpaidAmount: 0,
-    },
-    {
-      _id: '6589d9a304aebb7f750aaa8f',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableNumber: 2,
-      restaurantUsername: 'hamrolumbini',
-      orderCount: 0,
-      totalAmount: 0,
-      paidAmount: 0,
-      unpaidAmount: 0,
-    },
-    {
-      _id: '6589d9a604aebb7f750aaa92',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableNumber: 3,
-      restaurantUsername: 'hamrolumbini',
-      orderCount: 0,
-      totalAmount: 0,
-      paidAmount: 0,
-      unpaidAmount: 0,
-    },
-    {
-      _id: '6589d9a804aebb7f750aaa95',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableNumber: 4,
-      restaurantUsername: 'hamrolumbini',
-      orderCount: 1,
-      totalAmount: 532,
-      paidAmount: 0,
-      unpaidAmount: 0,
-    },
-    {
-      _id: '6589d9ab04aebb7f750aaa98',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableNumber: 5,
-      restaurantUsername: 'hamrolumbini',
-      orderCount: 0,
-      totalAmount: 0,
-      paidAmount: 0,
-      unpaidAmount: 0,
-    },
-    {
-      _id: '6589d9ae04aebb7f750aaa9b',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableNumber: 6,
-      restaurantUsername: 'hamrolumbini',
-      orderCount: 0,
-      totalAmount: 0,
-      paidAmount: 0,
-      unpaidAmount: 0,
-    },
-  ],
+  tableList: [],
   tableListError: null,
 
   isAddTableLoading: false,
@@ -81,7 +20,7 @@ export const fetchTableListAsync = createAsyncThunk(
   'menu/fetchTableListAsync',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/menu/table`);
+      const response = await axios.get(`${BASE_URL}/table`, { withCredentials: true });
       if (response.status === 200) {
         return response.data;
       }
@@ -98,7 +37,7 @@ export const addTableAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = await axios.post(`${BASE_URL}/table`, data);
+      const response = await axios.post(`${BASE_URL}/table`, data, { withCredentials: true });
       if (response.status === 200) {
         toast.success('🍜 Table Created Successfully!', {
           position: 'top-right',
@@ -133,7 +72,7 @@ export const editTableAsync = createAsyncThunk(
   'menu/editTableAsync',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`${BASE_URL}/menu/category`, data);
+      const response = await axios.patch(`${BASE_URL}/table`, data, { withCredentials: true });
       if (response.status === 200) {
         toast.success('🍜 Category Edited Successfully!', {
           position: 'top-right',
@@ -175,7 +114,7 @@ const tableSlice = createSlice({
       })
       .addCase(fetchTableListAsync.fulfilled, (state, action) => {
         state.isTableListLoading = false;
-        state.tableList = action.payload;
+        state.tableList = action.payload?.data;
       })
       .addCase(fetchTableListAsync.rejected, (state, action) => {
         state.isTableListLoading = false;
