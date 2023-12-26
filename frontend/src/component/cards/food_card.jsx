@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import {
   Card,
   Typography,
@@ -167,13 +167,3 @@ function FoodCard({
 }
 
 export default FoodCard;
-
-FoodCard.propTypes = {
-  imageId: PropTypes.any,
-  checkedItems: PropTypes.any,
-  setCheckedItems: PropTypes.any,
-  foodName: PropTypes.string,
-  price: PropTypes.number,
-  description: PropTypes.string,
-  imagePreview: PropTypes.string,
-};
