@@ -57,7 +57,7 @@ const updateTable = asyncHandler(async (req, res, next) => {
 const deleteTable = asyncHandler(async (req, res, next) => {
     const restaurantId = req.user.restaurantId;
 
-    const { tableId } = req.body;
+    const { tableId } = req.params;
 
     const table = await Table.findOneAndDelete({ restaurantId, _id: tableId });
 

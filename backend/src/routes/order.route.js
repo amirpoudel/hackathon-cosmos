@@ -15,13 +15,16 @@ router.route("/")
     .get(verifyJWT,verifyRole(ROLES.ADMIN),order.getOrders)
     .patch(verifyJWT,verifyRole(ROLES.ADMIN),order.updateOrderStatus)
 
-router.route("/payment")
-    .patch(verifyJWT,verifyRole(ROLES.ADMIN),order.updateOrderPaymentStatus)
+//router.route("/payment")
+  //  .patch(verifyJWT,verifyRole(ROLES.ADMIN),order.updateOrderPaymentStatus)
 
 router.route("/dayAmount")
     .get(verifyJWT,verifyRole(ROLES.ADMIN),order.getDayTotalOrderAmount)
 
 router.route("/stats").get(verifyJWT,verifyRole(ROLES.ADMIN),order.getOrderStats)
 router.route("/totalSales").get(verifyJWT,verifyRole(ROLES.ADMIN),order.getTotalOrderAmountPerItem)
+
+
+router.route("/track/:phoneNumber").get(order.trackOrder)
 
 module.exports = router;

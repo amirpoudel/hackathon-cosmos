@@ -18,7 +18,8 @@ router.route("/item")
     .post(verifyJWT,verifyRole(ROLES.ADMIN),itemImageUpload,menu.checkMenuCategoryId,menu.createMenuItem)
     .patch(verifyJWT,verifyRole(ROLES.ADMIN),menu.updateMenuItem)
     .delete(verifyJWT,verifyRole(ROLES.ADMIN),menu.deleteMenuItem)
-    .get(verifyJWT,verifyRole(ROLES.ADMIN),menu.checkMenuCategoryId,menu.getMenuItem);
+
+router.route("/item/:categoryId").get(verifyJWT,verifyRole(ROLES.ADMIN),menu.getMenuItem);
 
 router.route("/item/image")
     .patch(verifyJWT,verifyRole(ROLES.ADMIN),itemImageUpload,menu.checkMenuCategoryId,menu.updatedMenuItemImage)

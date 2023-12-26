@@ -8,7 +8,6 @@ const tableSchema = new mongoose.Schema({
     tableNumber: {
         type: Number,
         required: true,
-        unique: true,
         min: [1, 'Table Number cannot be less than 1'],
         max: [100, 'Table Number cannot be greater than 100'],
     },

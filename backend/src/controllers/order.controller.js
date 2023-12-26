@@ -222,21 +222,27 @@ const getOrders = asyncHandler(async (req, res, next) => {
         .json(new ApiResponse(200, orders, 'Orders found successfully'));
 });
 
-const updateOrderStatus = asyncHandler(
-    asyncHandler(async (req, res, next) => {
+const updateOrderStatus = asyncHandler(async (req, res, next) => {
         const restaurantId = req.user.restaurantId;
 
-        const { orderId, status } = req.body;
+        const { orderId, status ,paymentStatus } = req.body;
+        console.log(req.body);
         if (status) {
             if (!Object.values(ORDER_STATUS).includes(status)) {
                 throw new ApiError(400, `Invalid status ${status}`);
             }
         }
+        if(paymentStatus){
+            if (!Object.values(ORDER_PAYMENT_STATUS).includes(paymentStatus)) {
+                throw new ApiError(400, `Invalid payment status ${paymentStatus}`);
+            }
+        }
         const order = await Order.findOneAndUpdate(
             { restaurantId, _id: orderId },
-            { status },
+            { status ,paymentStatus},
             { new: true }
         );
+        console.log(order);
         if (!order) {
             throw new ApiError(400, 'Order not updated');
         }
@@ -245,7 +251,7 @@ const updateOrderStatus = asyncHandler(
             .status(200)
             .json(new ApiResponse(200, order, 'Order updated successfully'));
     })
-);
+
 
 const updateOrderPaymentStatus = asyncHandler(
     asyncHandler(async (req, res, next) => {
@@ -286,12 +292,24 @@ const updateOrderPaymentStatus = asyncHandler(
 );
 
 const trackOrder = asyncHandler(async (req, res, next) => {
-    /*
-    1. get restaurantId from username
-    2. get order from phoneNumber, restaurantId and table Id
-    3. return order
-    */
+    const { phoneNumber } = req.params;
+
+    if (!phoneNumber) {
+        throw new ApiError(400, "Please Provide Phone Number");
+    }
+
+    // Get the current date in the format 'YYYY-MM-DD'
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    // Update the query to include the phone number and filter by today's date
+    const trackOrder = await Order.find({
+        phoneNumber: phoneNumber,
+        createdAt: { $gte: new Date(currentDate) }
+    })
+
+    return res.status(200).json(new ApiResponse(200, trackOrder, "Order Found Successfully"));
 });
+
 
 const getDayTotalOrderAmount = asyncHandler(async (req, res, next) => {
     // get total order today for a restaurant
@@ -455,5 +473,6 @@ const order = {
     getDayTotalOrderAmount,
     getOrderStats,
     getTotalOrderAmountPerItem,
+    trackOrder
 };
 module.exports = order;

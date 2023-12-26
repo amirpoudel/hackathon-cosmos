@@ -12,7 +12,7 @@ initializeObjectPrototype();
 
 
 app.use(cors({
-    origin: "http://localhost:3030",
+    origin: ["http://localhost:3030","http://localhost:5173"],
     credentials: true,
 }));
 app.use(cookieParser());

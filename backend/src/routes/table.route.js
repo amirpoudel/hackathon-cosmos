@@ -9,9 +9,10 @@ const table = require("../controllers/table.controller");
 router.route("/")
     .post(verifyJWT,verifyRole(ROLES.ADMIN),table.createTable)
     .patch(verifyJWT,verifyRole(ROLES.ADMIN),table.updateTable)
-    .delete(verifyJWT,verifyRole(ROLES.ADMIN),table.deleteTable)
     .get(verifyJWT,verifyRole(ROLES.ADMIN),table.getTable);
 
+
+router.route("/:tableId").delete(verifyJWT,verifyRole(ROLES.ADMIN),table.deleteTable);
     
 
 module.exports = router;

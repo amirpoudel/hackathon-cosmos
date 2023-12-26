@@ -5,6 +5,7 @@ const ApiError = require('../utils/ApiError');
 const { MenuCategory, MenuItem } = require('../models/menu.model');
 const {updateOnClodinary, uploadOnCloudinary, deleteFromCloudinary} = require("../utils/cloudinary");
 const { Restaurant } = require('../models/restaurant.model');
+const { Table } = require('../models/table.model');
 // Menu Category
 
 const checkMenuCategoryId = asyncHandler(async (req, res, next) => {
@@ -161,7 +162,7 @@ const createMenuItem = asyncHandler(async (req, res, next) => {
 
 const getMenuItem = asyncHandler(async (req, res, next) => {
     
-    const { categoryId } = req.body;
+    const { categoryId } = req.params;
     const restaurantId = req.user.restaurantId;
     
     const menuItems = await MenuItem.find({
@@ -353,6 +354,7 @@ const getMenu = asyncHandler(async (req, res, next) => {
                 imageLink:1,
                 itemsCount:1,
                 items:{
+                    _id:1,
                     name:1,
                     description:1,
                     price:1,
