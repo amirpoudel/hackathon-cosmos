@@ -6,153 +6,15 @@ import { BASE_URL } from '../config/base_url';
 
 const initialState = {
   isOrderListLoading: false,
-  orderList: [
-    {
-      _id: '6589dac504aebb7f750aaaa5',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableId: '6589d9ab04aebb7f750aaa98',
-      phoneNumber: '9822540076',
-      totalAmount: 1254,
-      status: 'served',
-      paymentStatus: 'paid',
-      tableNumber: 5,
-      orderItems: [
-        {
-          itemId: '6589b903a56fd7d204f33581',
-          quantity: 2,
-          price: 162,
-          totalAmount: 324,
-          itemName: 'chicken momo',
-        },
-        {
-          itemId: '6589c109e98b7927596a8b83',
-          quantity: 3,
-          price: 190,
-          totalAmount: 570,
-          itemName: 'chicken  fry momo',
-        },
-        {
-          itemId: '6589c11ae98b7927596a8b88',
-          quantity: 2,
-          price: 180,
-          totalAmount: 360,
-          itemName: 'chicken  jhol momo',
-        },
-      ],
-    },
-    {
-      _id: '6589e448fb9dbf7ed63f880a',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableId: '6589d9ab04aebb7f750aaa98',
-      phoneNumber: '9822540076',
-      totalAmount: 532,
-      orderNote: 'Piro Ali Kam Hai',
-      status: 'pending',
-      paymentStatus: 'unpaid',
-      tableNumber: 5,
-      orderItems: [
-        {
-          itemId: '6589b903a56fd7d204f33581',
-          quantity: 1,
-          price: 162,
-          totalAmount: 162,
-          itemName: 'chicken momo',
-        },
-        {
-          itemId: '6589c109e98b7927596a8b83',
-          quantity: 1,
-          price: 190,
-          totalAmount: 190,
-          itemName: 'chicken  fry momo',
-        },
-        {
-          itemId: '6589c11ae98b7927596a8b88',
-          quantity: 1,
-          price: 180,
-          totalAmount: 180,
-          itemName: 'chicken  jhol momo',
-        },
-      ],
-    },
-    {
-      _id: '6589f2f06b0a4c3629d14dbe',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableId: '6589d9a804aebb7f750aaa95',
-      phoneNumber: '9822540076',
-      totalAmount: 532,
-      orderNote: 'Piro Ali Kam Hai',
-      status: 'pending',
-      paymentStatus: 'unpaid',
-      tableNumber: 4,
-      orderItems: [
-        {
-          itemId: '6589b903a56fd7d204f33581',
-          quantity: 1,
-          price: 162,
-          totalAmount: 162,
-          itemName: 'chicken momo',
-        },
-        {
-          itemId: '6589c109e98b7927596a8b83',
-          quantity: 1,
-          price: 190,
-          totalAmount: 190,
-          itemName: 'chicken  fry momo',
-        },
-        {
-          itemId: '6589c11ae98b7927596a8b88',
-          quantity: 1,
-          price: 180,
-          totalAmount: 180,
-          itemName: 'chicken  jhol momo',
-        },
-      ],
-    },
-    {
-      _id: '658a0133c5abf8969c2cf5d8',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      tableId: '6589d99d04aebb7f750aaa8c',
-      phoneNumber: '9822540076',
-      totalAmount: 532,
-      orderNote: 'Piro Ali Kam Hai',
-      status: 'pending',
-      paymentStatus: 'unpaid',
-      createdAt: '2023-12-25T22:24:51.809Z',
-      updatedAt: '2023-12-25T22:24:51.809Z',
-      tableNumber: 1,
-      orderItems: [
-        {
-          itemId: '6589b903a56fd7d204f33581',
-          quantity: 1,
-          price: 162,
-          totalAmount: 162,
-          itemName: 'chicken momo',
-        },
-        {
-          itemId: '6589c109e98b7927596a8b83',
-          quantity: 1,
-          price: 190,
-          totalAmount: 190,
-          itemName: 'chicken  fry momo',
-        },
-        {
-          itemId: '6589c11ae98b7927596a8b88',
-          quantity: 1,
-          price: 180,
-          totalAmount: 180,
-          itemName: 'chicken  jhol momo',
-        },
-      ],
-    },
-  ],
-  orderLisError: null,
+  orderList: [],
+  orderListError: null,
 };
 
 export const fetchOrderListAsync = createAsyncThunk(
   'menu/fetchOrderListAsync',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/menu/table`, { withCredentials: true });
+      const response = await axios.get(`${BASE_URL}/order`, { withCredentials: true });
       if (response.status === 200) {
         return response.data;
       }
@@ -215,7 +77,7 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrderListAsync.rejected, (state, action) => {
         state.isOrderListLoading = false;
-        state.orderLisError = action.payload;
+        state.orderListError = action.payload;
       })
 
       .addCase(updateOrderAsync.pending, (state) => {

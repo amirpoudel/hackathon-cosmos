@@ -47,6 +47,8 @@ function Column() {
   const orderList = useSelector((state) => state.order.orderList);
   console.log(orderList)
 
+  console.log('order list', orderList);
+
   useEffect(() => {
     const pendingOrders = orderList.filter((item) => item.status === 'pending');
     const cookingOrders = orderList.filter((item) => item.status === 'cooking');
