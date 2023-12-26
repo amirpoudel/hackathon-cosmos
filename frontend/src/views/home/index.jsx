@@ -10,7 +10,7 @@ import {
   Badge,
 } from "@mui/material";
 
-import FirstSectionCategories from "./component/first_section_home";
+import FirstSectionCategories from "./component/first_section_categories";
 import SecondSectionFoodList from "./component/second_section_food_list";
 import CheckoutPopup from "./component/checkout_popup";
 

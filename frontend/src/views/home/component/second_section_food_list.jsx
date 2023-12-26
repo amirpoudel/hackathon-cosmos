@@ -10,7 +10,7 @@ function SecondSectionFoodList({
 }) {
   console.log(selectedCategoryFoodList);
 
-  if (selectedCategoryFoodList.length === 0) {
+  if (selectedCategoryFoodList?.length === 0) {
     return (
       <Box>
         <Typography variant="h4">No Item Found</Typography>
