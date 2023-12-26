@@ -9,7 +9,6 @@ const menuCategorySchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
-        unique:true
     },
     description:{
         type:String,
@@ -37,7 +36,6 @@ const menuItemSchema = new mongoose.Schema({
         required:true,
         lowercase:true,
         trim: true,
-        unique:true
        
     },
     price:{

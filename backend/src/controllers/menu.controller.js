@@ -10,6 +10,7 @@ const { Restaurant } = require('../models/restaurant.model');
 const checkMenuCategoryId = asyncHandler(async (req, res, next) => {
     const { categoryId } = req.body;
     const restaurantId = req.user.restaurantId;
+    console.log(req.body);
     if (!categoryId || !restaurantId) {
         throw new ApiError(400, 'Restaurant Id and Category Id is required');
     }
@@ -24,16 +25,16 @@ const checkMenuCategoryId = asyncHandler(async (req, res, next) => {
 })
 
 const createMenuCategory = asyncHandler(async (req, res, next) => {
-    const {categoryName, categoryDescription } = req.body;
+    const {category, categoryDescription } = req.body;
     const restaurantId = req.user.restaurantId;
-   
-    if (!categoryName || !categoryDescription) {
+    console.log(req.body);
+    if (!category ) {
         throw new ApiError(400, 'missing required fields');
     }
 
     const categoryResponse = await MenuCategory.create({
         restaurantId: restaurantId,
-        name: categoryName,
+        name: category,
         description: categoryDescription,
     });
 
@@ -42,7 +43,7 @@ const createMenuCategory = asyncHandler(async (req, res, next) => {
     }
 
     return res
-        .status(201)
+        .status(200)
         .json(
             new ApiResponse(
                 200,
@@ -56,6 +57,10 @@ const getMenuCategory = asyncHandler(async (req, res) => {
 
     const restaurantId = req.user.restaurantId;
     const categories = await MenuCategory.find({ restaurantId: restaurantId });
+    console.log("THis is Category",categories);
+    console.log(typeof categories)
+
+    console.log(Array.isArray(categories)); // This should log 'true' if categories is an array
 
     return res.status(200).json(new ApiResponse(200, categories, 'Success'));
 
@@ -110,12 +115,13 @@ const createMenuItem = asyncHandler(async (req, res, next) => {
         isAvailable
     } = req.body;
 
+    console.log(req.body);
     const restaurantId = req.user.restaurantId;
 
     // item image can only single
     const localFilePath = req?.file?.path;
 
-    if (!categoryId || !name || !price || !isVeg || !containsEggs) {
+    if (!categoryId || !name || !price) {
         throw new ApiError(400, 'missing required fields');
     }
 
@@ -149,7 +155,7 @@ const createMenuItem = asyncHandler(async (req, res, next) => {
     }
 
     return res
-        .status(201)
+        .status(200)
         .json(new ApiResponse(200, itemResponse, 'Item created successfully'));
 });
 
@@ -302,13 +308,17 @@ const deleteMenuItemImage = asyncHandler(async (req, res, next) => {
 
 const getMenu = asyncHandler(async (req, res, next) => {
     
-    const {restaurantUsername} = req.params;
+    const {restaurantUsername,tableNumber} = req.params;
     console.log(restaurantUsername);
     console.log("Iam am here");
     if(!restaurantUsername){
         throw new ApiError(400, 'Restaurant Username is required');
     }
     const restaurantId = await Restaurant.findOne({username:restaurantUsername}).select("_id");
+    const table = await Table.findOne({restaurantId:restaurantId._id,tableNumber:tableNumber}).select("_id");
+    if(!table){
+        throw new ApiError(400, 'Table Number is invalid');
+    }
 
     if(!restaurantId){
         throw new ApiError(400, 'Restaurant Username is invalid');

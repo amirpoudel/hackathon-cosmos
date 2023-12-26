@@ -80,12 +80,18 @@ const loginUser = asyncHandler(async (req, res) => {
         .toObject()
         .excludeProperties(['password', 'refreshToken', 'updatedAt','restaurantId']);
 
-    const options = {
-        httpOnly: true,
-        secure: true,
-    };
+        const options = {
+            path: '/',
+            httpOnly: true,
+            secure: false, // Change this to false for local development
+            sameSite: 'Lax', // Change to 'None' in production with HTTPS
+          };
+          
+          
 
     console.log("User Logged In Successfully",userResponse)
+    console.log("This is access token",accessToken)
+    console.log("This is refresh token",refreshToken)
     return res
         .status(200)
         .cookie('refreshToken', refreshToken, options)

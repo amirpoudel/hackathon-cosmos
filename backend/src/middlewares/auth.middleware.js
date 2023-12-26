@@ -7,6 +7,8 @@ const { User } = require('../models/user.model');
 const verifyJWT = asyncHandler(async (req, res, next) => {
     try {
         const token = req.cookies?.accessToken || req.header('Authorization')?.replace("Bearer",""); // header for mobile
+        console.log("this is token",token)
+        console.log("this is req.cookies",req.cookies)
         if (!token) {
             throw new ApiError(401, 'Unauthorized request');
         }

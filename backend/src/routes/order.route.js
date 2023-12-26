@@ -21,4 +21,7 @@ router.route("/payment")
 router.route("/dayAmount")
     .get(verifyJWT,verifyRole(ROLES.ADMIN),order.getDayTotalOrderAmount)
 
+router.route("/stats").get(verifyJWT,verifyRole(ROLES.ADMIN),order.getOrderStats)
+router.route("/totalSales").get(verifyJWT,verifyRole(ROLES.ADMIN),order.getTotalOrderAmountPerItem)
+
 module.exports = router;
