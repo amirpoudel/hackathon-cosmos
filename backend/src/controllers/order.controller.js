@@ -164,6 +164,8 @@ const getOrders = asyncHandler(async (req, res, next) => {
                 orderNote: 1,
                 status: 1,
                 paymentStatus: 1,
+                createdAt: 1,
+                updatedAt: 1,
                 tableNumber: "$table.tableNumber",
             },
         },
@@ -191,6 +193,8 @@ const getOrders = asyncHandler(async (req, res, next) => {
                 status: 1,
                 paymentStatus: 1,
                 tableNumber: 1,
+                createdAt: 1,
+                updatedAt:1
             },
         },
     ]);
