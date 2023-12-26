@@ -15,11 +15,14 @@ function FirstSectionCategories() {
 
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const foodList = useSelector((state) => state.home.foodList);
+  const categoryList = useSelector((state) => state.home.categoryList);
 
   // Filter out the FirstSectionCategories from the food list
-  const categoryList = useMemo(() => {
-    return ["All", ...new Set(foodList.map((item) => item.menuCategory.name))];
+  const filteredCategoryList = useMemo(() => {
+    return [
+      "All",
+      ...new Set(categoryList.map((item) => item.menuCategory.name)),
+    ];
   }, [foodList]);
 
   useEffect(() => {
@@ -33,7 +36,7 @@ function FirstSectionCategories() {
 
   return (
     <Box sx={{ width: "100%", overflowX: "auto", whiteSpace: "nowrap" }}>
-      {categoryList.map((item, index) => {
+      {filteredCategoryList.map((item, index) => {
         return (
           <Button
             key={index}

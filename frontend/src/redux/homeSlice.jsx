@@ -3,136 +3,65 @@ import axios from "axios";
 import { BASE_URL } from "src/config/base_url";
 
 const initialState = {
-  foodList: [
+  isCategoryListLoading: false,
+  categoryListError: null,
+  categoryList: [
     {
-      itemID: 1,
-      name: "Chicken Steam Momo",
-      price: 160,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "momo",
-      },
+      _id: "6589b0362e6b59d1afaf8f86",
+      name: "momos",
+      description: "Most Famous Nepali Dish Amongs Nepali And OutSiders",
+      items: [
+        {
+          name: "chicken momo",
+          price: 180,
+          description: "This is nepali chicken momo",
+          flags: {
+            isVeg: false,
+            containsEggs: false,
+            isSpecial: false,
+            isRecommended: false,
+            isAvailable: true,
+          },
+          imageLink:
+            "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703524612/f19my1ufrq7zyclgygtp.jpg",
+        },
+        {
+          name: "chicken  fry momo",
+          price: 190,
+          description: "This is nepali chicken momo",
+          flags: {
+            isVeg: false,
+            containsEggs: false,
+            isSpecial: false,
+            isRecommended: false,
+            isAvailable: true,
+          },
+          imageLink:
+            "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703526666/yvnsx9j7kqipdy2lbmsd.jpg",
+        },
+        {
+          name: "chicken  jhol momo",
+          price: 180,
+          description: "This is nepali chicken momo",
+          flags: {
+            isVeg: false,
+            containsEggs: false,
+            isSpecial: false,
+            isRecommended: false,
+            isAvailable: true,
+          },
+          imageLink:
+            "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703526683/tgrvhswvzdb5zwl7c1ml.jpg",
+        },
+      ],
+      itemsCount: 3,
     },
     {
-      itemID: 2,
-      name: "Fried Momo",
-      price: 200,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "momo",
-      },
-    },
-    {
-      itemID: 3,
-      name: "Chicken Pizza",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Pizza",
-      },
-    },
-    {
-      itemID: 4,
-      name: "Cheezy Pizza",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Pizza",
-      },
-    },
-    {
-      itemID: 5,
-      name: "Base Pizza",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Pizza",
-      },
-    },
-    {
-      itemID: 6,
-      name: "Dami Pizza",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Pizza",
-      },
-    },
-    {
-      itemID: 7,
-      name: "Veg Pizza",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Pizza",
-      },
-    },
-    {
-      itemID: 8,
-      name: "Coke",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Drinks",
-      },
-    },
-    {
-      itemID: 9,
-      name: "Noodle",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Snacks",
-      },
-    },
-    {
-      itemID: 10,
-      name: "Noodle",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Snacks",
-      },
-    },
-    {
-      itemID: 11,
-      name: "Veg",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Veg",
-      },
-    },
-    {
-      itemID: 12,
-      name: "Chicken",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Non Veg",
-      },
-    },
-    {
-      itemID: 13,
-      name: "Salad",
-      price: 260,
-      description: "",
-      image: "uploads/food/chikenMomo_4.jpeg",
-      menuCategory: {
-        name: "Salad",
-      },
+      _id: "6589bfffbe6fa3ad08f76920",
+      name: "Nepali Khana Set",
+      description: "Nepali Authentic Khana Set",
+      items: [],
+      itemsCount: 0,
     },
   ],
   filteredFoodList: [],
@@ -140,8 +69,8 @@ const initialState = {
   foodListError: null,
 };
 
-export const fetchFoodList = createAsyncThunk(
-  "home/fetchFoodList",
+export const fetchCategoryList = createAsyncThunk(
+  "home/fetchCategoryList",
   async ({ userName, tableNumber }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
@@ -172,17 +101,17 @@ const homeSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchFoodList.pending, (state) => {
-      state.isFoodListLoading = true;
+    builder.addCase(fetchCategoryList.pending, (state) => {
+      state.isCategoryListLoading = true;
     });
-    builder.addCase(fetchFoodList.fulfilled, (state, action) => {
-      state.foodList = action.payload;
-      state.filteredFoodList = action.payload;
-      state.isFoodListLoading = false;
+    builder.addCase(fetchCategoryList.fulfilled, (state, action) => {
+      state.categoryList = action.payload?.data;
+      state.filteredCategoryList = action.payload?.data;
+      state.isCategoryListLoading = false;
     });
-    builder.addCase(fetchFoodList.rejected, (state, action) => {
-      state.isFoodListLoading = false;
-      state.foodListError = action.payload;
+    builder.addCase(fetchCategoryList.rejected, (state, action) => {
+      state.isCategoryListLoading = false;
+      state.categoryListError = action.payload;
     });
   },
 });
