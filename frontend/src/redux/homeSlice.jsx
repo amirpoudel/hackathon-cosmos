@@ -17,6 +17,8 @@ const initialState = {
 
   orderedStatus: "",
   customerPhoneNumber: "",
+
+  isOrderStatusLoading: false,
 };
 
 export const fetchCategoryList = createAsyncThunk(
@@ -36,8 +38,8 @@ export const fetchCategoryList = createAsyncThunk(
     }
   }
 );
-export const fetchOrderedStatus = createAsyncThunk(
-  "home/fetchOrderedStatus",
+export const fetchOrderStatusAsync = createAsyncThunk(
+  "home/fetchOrderStatusAsync",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
@@ -105,6 +107,17 @@ const homeSlice = createSlice({
       state.isCategoryListLoading = false;
     });
     builder.addCase(fetchCategoryList.rejected, (state, action) => {
+      state.isCategoryListLoading = false;
+      state.categoryListError = action.payload;
+    });
+    builder.addCase(fetchOrderStatusAsync.pending, (state) => {
+      state.isOrderStatusLoading = true;
+    });
+    builder.addCase(fetchOrderStatusAsync.fulfilled, (state, action) => {
+      state.isOrderStatusLoading = true;
+      state.orderedStatus = action.payload?.data?.status;
+    });
+    builder.addCase(fetchOrderStatusAsync.rejected, (state, action) => {
       state.isCategoryListLoading = false;
       state.categoryListError = action.payload;
     });
