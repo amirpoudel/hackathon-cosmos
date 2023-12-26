@@ -28,8 +28,7 @@ export const loginRestaurantAsync = createAsyncThunk(
     try {
       console.log(data);
       const response = await axios.post(`${BASE_URL}/user/login`, data);
-      console.log(response);
-      if (response.statusCode === 200) {
+      if (response.status === 200) {
         toast.success('🍜 Login Success !', {
           position: 'top-right',
           autoClose: 1200,
@@ -68,7 +67,7 @@ export const registerRestaurantAsync = createAsyncThunk(
     console.log(data);
     try {
       const response = await axios.post(`${BASE_URL}/user/register`, data);
-      if (response.statusCode === 200) {
+      if (response.status === 200) {
         toast.success('🍜 Registration Success  !', {
           position: 'top-right',
           autoClose: 1200,
@@ -104,7 +103,7 @@ export const registerRestaurantAsync = createAsyncThunk(
 export const logoutAsync = createAsyncThunk('auth/logoutAsync', async (_, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${BASE_URL}/logout`);
-    if (response.statusCode === 200) {
+    if (response.status === 200) {
       toast.success('🍜 Logout Success  !', {
         position: 'top-right',
         autoClose: 1200,
