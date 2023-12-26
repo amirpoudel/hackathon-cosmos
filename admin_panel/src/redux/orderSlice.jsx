@@ -74,7 +74,7 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrderListAsync.fulfilled, (state, action) => {
         state.isOrderListLoading = false;
-        state.orderList = action.payload;
+        state.orderList = action.payload?.data;
       })
       .addCase(fetchOrderListAsync.rejected, (state, action) => {
         state.isOrderListLoading = false;
