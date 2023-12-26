@@ -98,9 +98,9 @@ export const addTableAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = await axios.post(`${BASE_URL}/menu/category`, data);
+      const response = await axios.post(`${BASE_URL}/table`, data);
       if (response.status === 200) {
-        toast.success('🍜 Category Added Successfully!', {
+        toast.success('🍜 Table Created Successfully!', {
           position: 'top-right',
           autoClose: 1200,
           hideProgressBar: false,
