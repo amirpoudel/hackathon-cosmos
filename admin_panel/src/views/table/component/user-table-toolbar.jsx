@@ -19,7 +19,7 @@ import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 import Iconify from 'src/components/iconify';
 
-// import QRCodeToPDF from './qr_to_pdf_popup';
+import QRCodeToPDF from './qr_to_pdf_popup';
 
 // ----------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ export default function UserTableToolbar({
   };
 
   const handleCloseQrDialog = () => {
-    setOpenQrCodeDialog(true);
+    setOpenQrCodeDialog(false);
   };
 
   return (
@@ -112,7 +112,9 @@ export default function UserTableToolbar({
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>QR for Table</DialogTitle>
-        <DialogContent>{/* <QRCodeToPDF selectedQrLink={selectedQrLink} /> */}</DialogContent>
+        <DialogContent>
+          <QRCodeToPDF selectedQrLink={selectedQrLink} />
+        </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseQrDialog}>Cancel</Button>
         </DialogActions>

@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas';
 import { PDFDocument } from 'pdf-lib';
 import { Button } from '@mui/material';
 
-const QRCodeToPDF = ({ value }) => {
+const QRCodeToPDF = ({ selectedQrLink }) => {
   const qrCodeRef = useRef(null);
 
   const downloadPDF = async () => {
@@ -35,7 +35,7 @@ const QRCodeToPDF = ({ value }) => {
 
   return (
     <div ref={qrCodeRef}>
-      <QRcode value={value} />
+      <QRcode value={selectedQrLink} />
       <Button onClick={downloadPDF}>download</Button>
     </div>
   );
@@ -44,5 +44,5 @@ const QRCodeToPDF = ({ value }) => {
 export default QRCodeToPDF;
 
 QRCodeToPDF.propTypes = {
-  value: PropTypes.string,
+  selectedQrLink: PropTypes.string,
 };

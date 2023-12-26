@@ -27,8 +27,8 @@ export const loginRestaurantAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = axios.post(`${BASE_URL}/user/login`, data);
-      if (response.status === 200) {
+      const response = await axios.post(`${BASE_URL}/user/login`, data);
+      if (response.statusCode === 200) {
         toast.success('🍜 Login Success !', {
           position: 'top-right',
           autoClose: 1200,
@@ -39,9 +39,8 @@ export const loginRestaurantAsync = createAsyncThunk(
           progress: undefined,
           theme: 'light',
         });
-        if (response.status === 200) {
-          return response.data;
-        }
+
+        return response.data;
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Login';
@@ -67,8 +66,8 @@ export const registerRestaurantAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     try {
-      const response = axios.post(`${BASE_URL}/user/register`, data);
-      if (response.status === 200) {
+      const response = await axios.post(`${BASE_URL}/user/register`, data);
+      if (response.statusCode === 200) {
         toast.success('🍜 Registration Success  !', {
           position: 'top-right',
           autoClose: 1200,
@@ -79,9 +78,8 @@ export const registerRestaurantAsync = createAsyncThunk(
           progress: undefined,
           theme: 'light',
         });
-        if (response.status === 200) {
-          return response.data;
-        }
+
+        return response.data;
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Register';
@@ -104,8 +102,8 @@ export const registerRestaurantAsync = createAsyncThunk(
 // Restaurant Logout
 export const logoutAsync = createAsyncThunk('auth/logoutAsync', async (_, { rejectWithValue }) => {
   try {
-    const response = axios.post(`${BASE_URL}/logout`);
-    if (response.status === 200) {
+    const response = await axios.post(`${BASE_URL}/logout`);
+    if (response.statusCode === 200) {
       toast.success('🍜 Logout Success  !', {
         position: 'top-right',
         autoClose: 1200,
@@ -116,9 +114,8 @@ export const logoutAsync = createAsyncThunk('auth/logoutAsync', async (_, { reje
         progress: undefined,
         theme: 'light',
       });
-      if (response.status === 200) {
-        return response.data;
-      }
+
+      return response.data;
     }
   } catch (err) {
     const errorMessage = err?.response?.data?.message || 'Unable To Logout';
