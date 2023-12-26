@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { useSelector } from "react-redux";
-import { fetchCategoryList, setFilterFoodList } from "src/redux/homeSlice";
+import { fetchCategoryList } from "src/redux/homeSlice";
 
 function FirstSectionCategories({ setSelectedCategoryFoodList }) {
   const dispatch = useDispatch();
@@ -20,6 +20,8 @@ function FirstSectionCategories({ setSelectedCategoryFoodList }) {
   useEffect(() => {
     dispatch(fetchCategoryList({ userName, tableNumber }));
   }, [dispatch]);
+
+  console.log("category list", categoryList);
 
   useEffect(() => {
     if (categoryList) {

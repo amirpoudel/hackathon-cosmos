@@ -42,6 +42,16 @@ export const addOrderAsync = createAsyncThunk(
         data
       );
       if (response.status === 200) {
+        toast.success("🍜 Login Success !", {
+          position: "top-right",
+          autoClose: 1200,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         return response.data;
       }
     } catch (err) {

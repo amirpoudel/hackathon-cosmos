@@ -50,7 +50,11 @@ function CheckoutPopup({ checkedItems, setCheckedItems }) {
       orderNote,
     };
 
-    dispatch(addOrderAsync({ userName, tableNumber, data }));
+    dispatch(addOrderAsync({ userName, tableNumber, data })).then((res) => {
+      if (addOrderAsync.fulfilled.match(res)) {
+        setOpenUserPopup(false);
+      }
+    });
   };
 
   const handleRemoveQuantity = (itemId) => {
@@ -160,6 +164,7 @@ function CheckoutPopup({ checkedItems, setCheckedItems }) {
 
           <Button
             onClick={handleOrder}
+            fullWidth
             sx={{
               backgroundColor: "black",
               color: "white",
