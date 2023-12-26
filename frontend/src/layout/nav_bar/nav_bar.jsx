@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Box } from "@mui/material";
+
+import { fetchOrderStatusAsync } from "src/redux/homeSlice";
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -8,9 +10,9 @@ function NavBar() {
 
   useEffect(() => {
     if (orderedStatus) {
-      dispatch(fetchOrderListAsync());
+      dispatch(fetchOrderStatusAsync());
       const intervalId = setInterval(() => {
-        dispatch(fetchOrderListAsync());
+        dispatch(fetchOrderStatusAsync());
       }, 5000);
 
       return () => clearInterval(intervalId);
