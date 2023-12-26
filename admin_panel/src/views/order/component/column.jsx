@@ -104,11 +104,19 @@ function Column() {
 
       console.log('removed', removed);
       console.log('dest col', destColumn);
-      const data = {
-        orderId: removed._id,
-        status: destColumn.title,
-      };
-      dispatch(updateOrderAsync(data));
+      if (destColumn === 'paid') {
+        const data = {
+          orderId: removed._id,
+          paymentStatus: destColumn.title,
+        };
+        dispatch(updateOrderAsync(data));
+      } else {
+        const data = {
+          orderId: removed._id,
+          status: destColumn.title,
+        };
+        dispatch(updateOrderAsync(data));
+      }
 
       destItems.splice(destination.index, 0, removed);
       setColumns({
