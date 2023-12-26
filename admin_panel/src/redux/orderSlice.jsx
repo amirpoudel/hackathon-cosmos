@@ -15,6 +15,7 @@ export const fetchOrderListAsync = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${BASE_URL}/order`, { withCredentials: true });
+      console.log('order response', response);
       if (response.status === 200) {
         return response.data;
       }
