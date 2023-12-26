@@ -99,7 +99,9 @@ export const fetchCategoryListAsync = createAsyncThunk(
   'menu/fetchCategoryListAsync',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/menu/category`);
+      const response = await axios.get(`${BASE_URL}/menu/category`, {
+        withCredentials: true,
+      });
       if (response.status === 200) {
         return response.data;
       }
@@ -116,7 +118,9 @@ export const addNewCategoryAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = await axios.post(`${BASE_URL}/menu/category`, data);
+      const response = await axios.post(`${BASE_URL}/menu/category`, data, {
+        withCredentials: true,
+      });
       if (response.status === 200) {
         toast.success('🍜 Category Added Successfully!', {
           position: 'top-right',
@@ -151,7 +155,9 @@ export const editCategoryAsync = createAsyncThunk(
   'menu/editCategoryAsync',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`${BASE_URL}/menu/category`, data);
+      const response = await axios.patch(`${BASE_URL}/menu/category`, data, {
+        withCredentials: true,
+      });
       if (response.status === 200) {
         toast.success('🍜 Category Edited Successfully!', {
           position: 'top-right',
@@ -189,7 +195,9 @@ export const addNewFoodItem = createAsyncThunk(
     console.log([...formData.entries()]);
 
     try {
-      const response = await axios.post(`${BASE_URL}/menu/item`, formData);
+      const response = await axios.post(`${BASE_URL}/menu/item`, formData, {
+        withCredentials: true,
+      });
       console.log('new item response', response);
       if (response.status === 200) {
         toast.success('🍜 Item Added Successfully!', {
