@@ -27,7 +27,8 @@ export const loginRestaurantAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = axios.post(`${BASE_URL}/user/login`, data);
+      const response = await axios.post(`${BASE_URL}/user/login`, data);
+      console.log(response);
       if (response.status === 200) {
         toast.success('🍜 Login Success !', {
           position: 'top-right',
@@ -39,9 +40,8 @@ export const loginRestaurantAsync = createAsyncThunk(
           progress: undefined,
           theme: 'light',
         });
-        if (response.status === 200) {
           return response.data;
-        }
+        
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Login';
