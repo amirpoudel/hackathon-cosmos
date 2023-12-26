@@ -28,6 +28,7 @@ export const loginRestaurantAsync = createAsyncThunk(
     try {
       console.log(data);
       const response = await axios.post(`${BASE_URL}/user/login`, data);
+      console.log(response);
       if (response.statusCode === 200) {
         toast.success('🍜 Login Success !', {
           position: 'top-right',
