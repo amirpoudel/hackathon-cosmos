@@ -18,9 +18,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 import Iconify from 'src/components/iconify';
+import { deleteTableByAsyncById } from 'src/redux/tableSlice';
 
 import QRCodeToPDF from './qr_to_pdf_popup';
-import { deleteTableByAsyncById } from 'src/redux/tableSlice';
 
 // ----------------------------------------------------------------------
 

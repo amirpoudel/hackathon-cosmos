@@ -75,7 +75,6 @@ export const deleteTableByAsyncById = createAsyncThunk(
   'menu/deleteTableByAsyncById',
   async ({ tableId }, { rejectWithValue }) => {
     try {
-      console.log(data);
       const response = await axios.delete(`${BASE_URL}/table/${tableId}`, {
         withCredentials: true,
       });
