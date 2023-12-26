@@ -15,7 +15,6 @@ import DashboardLayout from './layouts/dashboard';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const TablePage = lazy(() => import('src/pages/table'));
-export const BlogPage = lazy(() => import('src/pages/blog'));
 export const ItemListPage = lazy(() => import('src/pages/item_page'));
 export const OrderPage = lazy(() => import('src/pages/orders_page'));
 export const MenuPage = lazy(() => import('src/pages/menu'));
@@ -34,7 +33,6 @@ export default function App() {
         <Route path="/itemlist" element={<ItemListPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/menu" element={<MenuPage />} />
-        <Route path="/blog" element={<BlogPage />} />
         <Route path="/table" element={<TablePage />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/login" element={<LoginPage />} />

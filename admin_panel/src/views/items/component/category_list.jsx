@@ -29,7 +29,6 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
       sx={{
         height: '35rem',
         minWidth: '18rem',
-        border: '1px solid red',
         backgroundColor: 'white',
         p: 2,
       }}
@@ -40,7 +39,7 @@ function CategoryList({ selectedCategoryId, setSelectedCategoryId }) {
       >
         Cateogory List
       </Typography>
-      <Box sx={{ my: '1rem' }}>
+      <Box sx={{ my: '1rem', overflow: 'auto' }}>
         {categoryList.map((category, index) => (
           <Card
             key={category._id}

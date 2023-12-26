@@ -26,7 +26,7 @@ function ItemList({ selectedCategoryId }) {
   };
 
   return (
-    <Box sx={{ height: '35rem', border: '1px solid red', flexGrow: '1' }}>
+    <Box sx={{ height: '35rem', flexGrow: '1' }}>
       <Grid container sx={{ mt: 4 }} justifyContent="flex-start" alignContent="flex-start">
         {foodItemList.map((foodItem, index) => (
           <Grid

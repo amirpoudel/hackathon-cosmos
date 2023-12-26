@@ -47,22 +47,27 @@ function Column() {
   const orderList = useSelector((state) => state.order.orderList);
 
   useEffect(() => {
+    const pendingOrders = orderList.filter((item) => item.status === 'pending');
+    const cookingOrders = orderList.filter((item) => item.status === 'cooking');
+    const readyToServeOrders = orderList.filter((item) => item.status === 'ready_to_serve');
+    const servedOrders = orderList.filter((item) => item.status === 'served');
+
     const col = {
       [uuidv4()]: {
         title: 'pending',
-        items: orderList,
+        items: pendingOrders,
       },
       [uuidv4()]: {
         title: 'cooking',
-        items: [],
+        items: cookingOrders,
       },
       [uuidv4()]: {
         title: 'ready_to_serve',
-        items: [],
+        items: readyToServeOrders,
       },
       [uuidv4()]: {
         title: 'served',
-        items: [],
+        items: servedOrders,
       },
     };
     setColumns(col);

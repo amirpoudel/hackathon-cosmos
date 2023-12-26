@@ -24,7 +24,7 @@ const navConfig = [
   },
   {
     title: 'orders',
-    path: '/blog',
+    path: '/order',
     icon: icon('ic_order'),
   },
   {
