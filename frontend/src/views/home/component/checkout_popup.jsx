@@ -16,7 +16,11 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import FoodCard from "src/component/cards/food_card";
 import { useDispatch } from "react-redux";
-import { addOrderAsync } from "src/redux/homeSlice";
+import {
+  addOrderAsync,
+  setOrderedStatus,
+  setCustomerPhoneNumber,
+} from "src/redux/homeSlice";
 import { useParams } from "react-router-dom";
 
 const Transition = React.forwardRef((props, ref) => (
@@ -52,6 +56,8 @@ function CheckoutPopup({ checkedItems, setCheckedItems }) {
 
     dispatch(addOrderAsync({ userName, tableNumber, data })).then((res) => {
       if (addOrderAsync.fulfilled.match(res)) {
+        dispatch(setCustomerPhoneNumber(phoneNumber));
+        dispatch(setOrderedStatus("pending"));
         setOpenUserPopup(false);
       }
     });

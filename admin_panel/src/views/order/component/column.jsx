@@ -51,6 +51,14 @@ function Column() {
 
   useEffect(() => {
     dispatch(fetchOrderListAsync());
+
+    console.log('fetc');
+    const intervalId = setInterval(() => {
+      console.log('fetching');
+      dispatch(fetchOrderListAsync());
+    }, 5000);
+
+    return () => clearInterval(intervalId);
   }, [dispatch]);
 
   useEffect(() => {
@@ -58,6 +66,7 @@ function Column() {
     const cookingOrders = orderList.filter((item) => item.status === 'cooking');
     const readyToServeOrders = orderList.filter((item) => item.status === 'ready_to_serve');
     const servedOrders = orderList.filter((item) => item.status === 'served');
+    const paidOrders = orderList.filter((item) => item.status === 'paid');
 
     const col = {
       [uuidv4()]: {
@@ -75,6 +84,10 @@ function Column() {
       [uuidv4()]: {
         title: 'served',
         items: servedOrders,
+      },
+      [uuidv4()]: {
+        title: 'paid',
+        items: paidOrders,
       },
     };
     setColumns(col);

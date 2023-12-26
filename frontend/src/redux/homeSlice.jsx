@@ -14,6 +14,9 @@ const initialState = {
 
   isAddOrderLoading: false,
   addOrderError: null,
+
+  orderedStatus: "",
+  customerPhoneNumber: "",
 };
 
 export const fetchCategoryList = createAsyncThunk(
@@ -22,6 +25,23 @@ export const fetchCategoryList = createAsyncThunk(
     try {
       const response = await axios.get(
         `${BASE_URL}/menu/${userName}/${tableNumber}`
+      );
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      const errorMessage =
+        err?.response?.data?.message || "Something went wrong";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+export const fetchOrderedStatus = createAsyncThunk(
+  "home/fetchOrderedStatus",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/order/track/${state.customerPhoneNumber}`
       );
       if (response.status === 200) {
         return response.data;
@@ -68,14 +88,11 @@ const homeSlice = createSlice({
   name: "home",
   initialState,
   reducers: {
-    setFilterFoodList: (state, action) => {
-      if (action.payload === "All") {
-        state.filteredFoodList = state.foodList;
-      } else {
-        state.filteredFoodList = state.foodList.filter(
-          (item) => item.menuCategory.name === action.payload
-        );
-      }
+    setOrderedStatus: (state, action) => {
+      state.orderedStatus = action.payload;
+    },
+    setCustomerPhoneNumber: (state, action) => {
+      state.customerPhoneNumber = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -102,5 +119,6 @@ const homeSlice = createSlice({
     });
   },
 });
-export const { setFilterFoodList } = homeSlice.actions;
+export const { setCustomerPhoneNumber, setOrderedStatus } = homeSlice.actions;
+
 export default homeSlice.reducer;
