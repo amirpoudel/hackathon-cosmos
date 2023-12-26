@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 // import { columnsFromBackend } from './board';
-import { updateOrderAsync } from 'src/redux/orderSlice';
+import { fetchOrderListAsync, updateOrderAsync } from 'src/redux/orderSlice';
 
 import TaskCard from './task_card';
 
@@ -47,6 +47,10 @@ function Column() {
   const orderList = useSelector((state) => state.order.orderList);
 
   console.log('order list', orderList);
+
+  useEffect(() => {
+    dispatch(fetchOrderListAsync());
+  }, [dispatch]);
 
   useEffect(() => {
     const pendingOrders = orderList.filter((item) => item.status === 'pending');
