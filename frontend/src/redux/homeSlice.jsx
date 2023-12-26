@@ -41,8 +41,9 @@ export const addOrderAsync = createAsyncThunk(
         `${BASE_URL}/order/${userName}/${tableNumber}`,
         data
       );
+      console.log("response", response);
       if (response.status === 200) {
-        toast.success("🍜 Login Success !", {
+        toast.success("🍜 Order Placed !", {
           position: "top-right",
           autoClose: 1200,
           hideProgressBar: false,

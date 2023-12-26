@@ -77,7 +77,7 @@ function CheckoutPopup({ checkedItems, setCheckedItems }) {
 
   return (
     <div style={{ padding: "2rem 0" }}>
-      <Grid container spacing={3} sx={{ border: "2px solid green" }}>
+      <Grid container spacing={3}>
         {checkedItems?.map((checkedItem) => (
           <Grid
             item
@@ -121,6 +121,7 @@ function CheckoutPopup({ checkedItems, setCheckedItems }) {
       </Grid>
       <Button
         onClick={() => setOpenUserPopup(true)}
+        fullWidth
         sx={{
           backgroundColor: "black",
           color: "white",
