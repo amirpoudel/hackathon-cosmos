@@ -34,7 +34,8 @@ export default function LoginView() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleLogin() {
+  function handleLogin(e) {
+    e.preventDefault();
     const data = {
       phoneNumber,
       password,

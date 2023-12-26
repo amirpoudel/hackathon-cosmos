@@ -152,7 +152,7 @@ export const fetchOrderListAsync = createAsyncThunk(
   'menu/fetchOrderListAsync',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/menu/table`);
+      const response = await axios.get(`${BASE_URL}/menu/table`, { withCredentials: true });
       if (response.status === 200) {
         return response.data;
       }
@@ -169,7 +169,7 @@ export const updateOrderAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log('data', data);
-      const response = await axios.patch(`${BASE_URL}/order`, data);
+      const response = await axios.patch(`${BASE_URL}/order`, data, { withCredentials: true });
       if (response.status === 200) {
         toast.success('🍜 ok xa ta!', {
           position: 'top-right',

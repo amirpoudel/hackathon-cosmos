@@ -41,7 +41,6 @@ export const loginRestaurantAsync = createAsyncThunk(
         });
         return response.data;
       }
-      return '';
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Login';
       toast.error(errorMessage, {
@@ -56,6 +55,7 @@ export const loginRestaurantAsync = createAsyncThunk(
       });
       return rejectWithValue(errorMessage);
     }
+    return '';
   }
 );
 
@@ -79,7 +79,6 @@ export const registerRestaurantAsync = createAsyncThunk(
         });
         return response.data;
       }
-      return '';
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Register';
       toast.success(errorMessage, {
@@ -94,6 +93,7 @@ export const registerRestaurantAsync = createAsyncThunk(
       });
       return rejectWithValue(errorMessage);
     }
+    return '';
   }
 );
 
@@ -114,7 +114,6 @@ export const logoutAsync = createAsyncThunk('auth/logoutAsync', async (_, { reje
       });
       return response.data;
     }
-    return '';
   } catch (err) {
     const errorMessage = err?.response?.data?.message || 'Unable To Logout';
     toast.success(errorMessage, {
@@ -129,6 +128,7 @@ export const logoutAsync = createAsyncThunk('auth/logoutAsync', async (_, { reje
     });
     return rejectWithValue(errorMessage);
   }
+  return '';
 });
 const authSlice = createSlice({
   name: 'auth',
