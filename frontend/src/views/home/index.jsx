@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container } from "@mui/material";
 
 import FirstSectionCategories from "./component/first_section_home";
+import SecondSectionFoodList from "./component/second_section_food_list";
 
 function HomeView() {
+  const [selectedCategoryFoodList, setSelectedCategoryFoodList] = useState([]);
+
   return (
     <main>
       <Box component="section">
@@ -16,7 +19,12 @@ function HomeView() {
           }}
           disableGutters
         >
-          <FirstSectionCategories />
+          <FirstSectionCategories
+            setSelectedCategoryFoodList={setSelectedCategoryFoodList}
+          />
+          <SecondSectionFoodList
+            selectedCategoryFoodList={selectedCategoryFoodList}
+          />
         </Container>
       </Box>
     </main>
