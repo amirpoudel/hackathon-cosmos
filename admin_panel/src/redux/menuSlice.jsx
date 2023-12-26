@@ -102,6 +102,7 @@ export const fetchCategoryListAsync = createAsyncThunk(
       const response = await axios.get(`${BASE_URL}/menu/category`, {
         withCredentials: true,
       });
+      console.log(response)
       if (response.status === 200) {
         return response.data;
       }
@@ -121,6 +122,7 @@ export const addNewCategoryAsync = createAsyncThunk(
       const response = await axios.post(`${BASE_URL}/menu/category`, {data}, {
         withCredentials:true
       });
+      console.log(response);
       if (response.status === 200) {
         toast.success('🍜 Category Added Successfully!', {
           position: 'top-right',
