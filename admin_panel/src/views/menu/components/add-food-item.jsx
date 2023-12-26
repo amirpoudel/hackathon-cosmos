@@ -222,7 +222,7 @@ const renderMenuItem = (isCategoryListLoading, categoryListError, categoryList) 
   if (isCategoryListLoading) return <MenuItem value="">Loading..</MenuItem>;
   if (categoryListError) return <MenuItem value="">{categoryListError}</MenuItem>;
   return categoryList.map((category, index) => (
-    <MenuItem key={index} value={category.name}>
+    <MenuItem key={index} value={category._id}>
       {category.name}
     </MenuItem>
   ));

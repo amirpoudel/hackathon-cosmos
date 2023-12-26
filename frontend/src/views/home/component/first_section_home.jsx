@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchCategoryList, setFilterFoodList } from "src/redux/homeSlice";
 
-function FirstSectionCategories() {
+function FirstSectionCategories({ setSelectedCategoryFoodList }) {
   const dispatch = useDispatch();
 
   const { userName } = useParams();
@@ -33,6 +33,7 @@ function FirstSectionCategories() {
 
   function handleCategoryChange(item) {
     setSelectedCategory(item?.name);
+    setSelectedCategoryFoodList(item?.items);
   }
 
   return (
