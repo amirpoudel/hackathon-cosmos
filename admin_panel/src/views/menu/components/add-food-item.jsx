@@ -27,6 +27,8 @@ function AddFoodItem() {
   const [image, setImage] = useState('');
   const [imagePreview, setImagePreview] = useState('');
   const [description, setDescription] = useState('');
+  const [discountPercentage, setDiscountPercentage] = useState('');
+
   const isCategoryListLoading = useSelector((state) => state.menu.isCategoryListLoading);
   const categoryListError = useSelector((state) => state.menu.categoryListError);
   const categoryList = useSelector((state) => state.menu.categoryList);
@@ -37,11 +39,12 @@ function AddFoodItem() {
   const handleAddFood = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('itemName', foodName);
-    formData.append('categoryID', selectedCategory);
-    formData.append('itemPrice', price);
+    formData.append('name', foodName);
+    formData.append('categoryId', selectedCategory);
+    formData.append('price', price);
     formData.append('itemImage', image);
-    formData.append('itemDescription', description);
+    formData.append('description', description);
+    formData.append('discountPercentage', discountPercentage);
 
     dispatch(addNewFoodItem(formData));
   };
@@ -131,6 +134,22 @@ function AddFoodItem() {
                   fullWidth
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                {' '}
+                <Typography variant="body1" sx={{ mb: 1, fontWeight: '500' }}>
+                  Discount (in %)
+                </Typography>
+                <TextField
+                  type="number"
+                  id="outlined-basic"
+                  label="Name"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  value={discountPercentage}
+                  onChange={(e) => setDiscountPercentage(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} md={6}>

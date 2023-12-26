@@ -40,7 +40,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-function Kanban() {
+function Column() {
   const dispatch = useDispatch();
   const [columns, setColumns] = useState(null);
 
@@ -137,4 +137,4 @@ function Kanban() {
   );
 }
 
-export default Kanban;
+export default Column;
