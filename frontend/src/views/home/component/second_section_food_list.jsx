@@ -1,18 +1,35 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 
 import FoodCard from "src/component/cards/food_card";
 
-function SecondSectionFoodList({ selectedCategoryFoodList }) {
+function SecondSectionFoodList({
+  selectedCategoryFoodList,
+  checkedItems,
+  setCheckedItems,
+}) {
+  console.log(selectedCategoryFoodList);
+
+  if (selectedCategoryFoodList.length === 0) {
+    return (
+      <Box>
+        <Typography variant="h4">No Item Found</Typography>
+      </Box>
+    );
+  }
+
+  console.log("selected category food list", selectedCategoryFoodList);
+
   return (
     <div>
       <Grid container>
-        {selectedCategoryFoodList.map((foodItem, index) => (
+        {selectedCategoryFoodList?.map((foodItem, index) => (
           <Grid
             item
-            key={foodItem._id}
+            key={index}
             xs={12}
             md={6}
+            lg={4}
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -21,10 +38,13 @@ function SecondSectionFoodList({ selectedCategoryFoodList }) {
             }}
           >
             <FoodCard
+              itemId={foodItem?._id}
               imagePreview={foodItem?.imageLink || ""}
               description={foodItem?.description || ""}
               price={foodItem?.price || ""}
               foodName={foodItem?.name || ""}
+              checkedItems={checkedItems}
+              setCheckedItems={setCheckedItems}
             />
           </Grid>
         ))}

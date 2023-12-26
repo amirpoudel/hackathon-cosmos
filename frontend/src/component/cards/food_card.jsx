@@ -9,9 +9,11 @@ import {
   IconButton,
   styled,
   Collapse,
+  Button,
   CardContent,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddIcon from "@mui/icons-material/Add";
 
 const ExpandMore = styled((props) => {
   const { ...other } = props;
@@ -24,11 +26,46 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function FoodCard({ imagePreview, description, price, foodName }) {
+function FoodCard({
+  itemId,
+  imagePreview,
+  description,
+  price,
+  foodName,
+  checkedItems,
+  setCheckedItems,
+}) {
   const [expanded, setExpanded] = useState(false);
+
+  const [isItemChecked, setIsItemChecked] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  console.log("item id", itemId);
+
+  const handleToggleItem = () => {
+    if (isItemChecked) {
+      // If the item is already checked, remove it
+      const updatedItems = checkedItems.filter(
+        (item) => item.itemId !== itemId
+      );
+      setCheckedItems(updatedItems);
+      setIsItemChecked(false);
+    } else {
+      // If the item is not checked, add it
+      const newItem = {
+        itemId,
+        imagePreview,
+        description,
+        price,
+        foodName,
+        quantity: 1,
+      };
+      setCheckedItems([...checkedItems, newItem]);
+      setIsItemChecked(true);
+    }
   };
 
   return (
@@ -94,7 +131,7 @@ function FoodCard({ imagePreview, description, price, foodName }) {
 
       <CardActions disableSpacing sx={{ padding: "0" }}>
         <ExpandMore
-          expand={expanded}
+          expand={expanded ? "true" : "false"}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
@@ -108,15 +145,25 @@ function FoodCard({ imagePreview, description, price, foodName }) {
           <Typography paragraph>{description}</Typography>
         </CardContent>
       </Collapse>
+
+      <Button
+        sx={{
+          position: "absolute",
+          right: "0rem",
+          top: "-1.5rem",
+          textTransform: "capitalize",
+          color: "black",
+          backgroundColor: "#f3f3f3",
+          padding: "0.1rem",
+          borderRadius: "1.5rem",
+        }}
+        endIcon={<AddIcon />}
+        onClick={handleToggleItem}
+      >
+        {isItemChecked ? "Remove" : "Add"}
+      </Button>
     </Card>
   );
 }
-
-// FoodCard.propTypes = {
-//   foodName: PropTypes.string,
-//   price: PropTypes.number,
-//   description: PropTypes.string,
-//   imagePreview: PropTypes.string,
-// };
 
 export default FoodCard;

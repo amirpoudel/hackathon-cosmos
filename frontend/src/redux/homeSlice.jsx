@@ -12,6 +12,7 @@ const initialState = {
       description: "Most Famous Nepali Dish Amongs Nepali And OutSiders",
       items: [
         {
+          _id: "6589b903a56fd7d204f33581",
           name: "chicken momo",
           price: 180,
           description: "This is nepali chicken momo",
@@ -26,6 +27,7 @@ const initialState = {
             "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703524612/f19my1ufrq7zyclgygtp.jpg",
         },
         {
+          _id: "6589c109e98b7927596a8b83",
           name: "chicken  fry momo",
           price: 190,
           description: "This is nepali chicken momo",
@@ -40,6 +42,7 @@ const initialState = {
             "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703526666/yvnsx9j7kqipdy2lbmsd.jpg",
         },
         {
+          _id: "6589c11ae98b7927596a8b88",
           name: "chicken  jhol momo",
           price: 180,
           description: "This is nepali chicken momo",

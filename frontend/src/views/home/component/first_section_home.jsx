@@ -13,23 +13,21 @@ function FirstSectionCategories({ setSelectedCategoryFoodList }) {
   const { userName } = useParams();
   const { tableNumber } = useParams();
 
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const categoryList = useSelector((state) => state.home.categoryList);
 
-  console.log(categoryList);
+  useEffect(() => {
+    dispatch(fetchCategoryList({ userName, tableNumber }));
+  }, [dispatch]);
 
-  // Filter out the FirstSectionCategories from the food list
-  // const filteredCategoryList = useMemo(() => {
-  //   return [
-  //     "All",
-  //     ...new Set(categoryList.map((item) => item.menuCategory.name)),
-  //   ];
-  // }, [categoryList]);
-
-  // useEffect(() => {
-  //   dispatch(fetchCategoryList({ userName, tableNumber }));
-  // }, [dispatch]);
+  useEffect(() => {
+    if (categoryList) {
+      setSelectedCategory(categoryList[0].name);
+      console.log(categoryList[0]);
+      setSelectedCategoryFoodList(categoryList[0]?.items);
+    }
+  }, [categoryList]);
 
   function handleCategoryChange(item) {
     setSelectedCategory(item?.name);
@@ -38,7 +36,7 @@ function FirstSectionCategories({ setSelectedCategoryFoodList }) {
 
   return (
     <Box sx={{ width: "100%", overflowX: "auto", whiteSpace: "nowrap" }}>
-      {categoryList.map((item) => {
+      {categoryList?.map((item) => {
         return (
           <Button
             key={item?._id}

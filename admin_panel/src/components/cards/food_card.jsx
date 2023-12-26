@@ -90,7 +90,7 @@ function FoodCard({ imagePreview, description, price, foodName }) {
 
       <CardActions disableSpacing sx={{ padding: '0' }}>
         <ExpandMore
-          expand={expanded}
+          expand={expanded ? 'true' : 'false'}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
