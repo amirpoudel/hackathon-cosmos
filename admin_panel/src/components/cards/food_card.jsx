@@ -83,7 +83,7 @@ function FoodCard({ imagePreview, description, price, foodName }) {
               textOverflow: 'ellipsis',
             }}
           >
-            {description || ''}
+            {description?.slice(0, 100) || ''}
           </Typography>
         </Box>{' '}
       </Box>

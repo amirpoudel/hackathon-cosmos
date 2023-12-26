@@ -1,5 +1,6 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { Typography, Box, Divider } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import styled from '@emotion/styled';
@@ -7,6 +8,7 @@ import styled from '@emotion/styled';
 // import { ReactComponent as RedArrow } from '../../assets/icons/High.svg'
 // import { ReactComponent as YellowArrow } from '../../assets/icons/Medium.svg'
 // import { ReactComponent as BlueArrow } from '../../assets/icons/Low.svg'
+import { getTime } from 'src/utils/get_datetime';
 
 const TaskInformation = styled.div`
   display: flex;
@@ -44,21 +46,33 @@ const TaskInformation = styled.div`
 
 function TaskCard({ item, index }) {
   return (
-    <Draggable key={item.id} draggableId={item.id} index={index}>
+    <Draggable key={item._id} draggableId={item._id} index={index}>
       {(provided) => (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           <TaskInformation>
-            <p>{item.Task}</p>
+            <Typography variant="subtitle2">Table Number : {item?.tableNumber}</Typography>
             <div className="secondary-details">
-              <p>
-                <span>
-                  {new Date(item.Due_Date).toLocaleDateString('en-us', {
-                    month: 'short',
-                    day: '2-digit',
-                  })}
-                </span>
-              </p>
+              <p>{getTime(item?.createdAt)}</p>
             </div>
+
+            <Typography variant="subtitle2">Order Note : {item?.orderNote}</Typography>
+            <Typography variant="subtitle2">Amount : Rs {item?.totalAmount}</Typography>
+            <Box>
+              <Typography variant="subtitle2" sx={{ color: 'black' }}>
+                Order Info
+              </Typography>
+              <Divider />
+              {item?.orderItems?.map((orderItem, mapIndex) => (
+                <Box key={mapIndex}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <Typography variant="subtitle2">{orderItem?.itemName} : </Typography>
+                    <Typography variant="subtitle2" sx={{ color: 'green' }}>
+                      {orderItem?.quantity}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}{' '}
+            </Box>
           </TaskInformation>
         </div>
       )}

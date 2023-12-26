@@ -6,6 +6,7 @@ const { Table } = require("../models/table.model");
 const ApiError = require("../utils/ApiError");
 const ApiResponse = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/asyncHandler");
+const { startOfDay, endOfDay } = require('date-fns');
 
 
 const createOrder = asyncHandler(async (req, res, next) => {
@@ -252,10 +253,71 @@ const updateOrderPaymentStatus = asyncHandler(asyncHandler(async(req,res,next)=>
 }))
 
 
-const getOrderTableAmount = asyncHandler(async(req,res,next)=>{
 
+const trackOrder = asyncHandler(async(req,res,next)=>{
 
+    /*
+    1. get restaurantId from username
+    2. get order from phoneNumber, restaurantId and table Id
+    3. return order
+    */
+})
 
+const getDayTotalOrderAmount = asyncHandler(async(req,res,next)=>{
+    // get total order today for a restaurant
+
+    const restaurantId = req.user.restaurantId;
+    const currentDate = new Date();
+
+    const orderAmount = await Order.aggregate([
+        {
+            $match: {
+                restaurantId:restaurantId,
+                createdAt: {
+                    $gte: startOfDay(currentDate),
+                    $lt: endOfDay(currentDate),
+                },
+            },
+        },
+        {
+            $group: {
+                _id: null,
+                totalAmount: { $sum: '$totalAmount' },
+                paidAmount: {
+                    $sum: {
+                        $cond: {
+                            if: { $eq: ['$paymentStatus', 'paid'] },
+                            then: '$totalAmount',
+                            else: 0,
+                        },
+                    },
+                },
+                unpaidAmount: {
+                    $sum: {
+                        $cond: {
+                            if: { $eq: ['$paymentStatus', 'unpaid'] },
+                            then: '$totalAmount',
+                            else: 0,
+                        },
+                    },
+                },
+            },
+        },
+        {
+            $project: {
+                _id: 0,
+                totalAmount: 1,
+                paidAmount: 1,
+                unpaidAmount: 1,
+            },
+        },
+    ])
+
+    if(orderAmount.length === 0){
+        throw new ApiError(400,"Order amount not found");
+    }
+
+    return res.status(200).json(new ApiResponse(200,orderAmount,"Order amount found successfully"));
 })
 
 
@@ -267,6 +329,7 @@ const order = {
     getOrders,
     updateOrderStatus,
     updateOrderPaymentStatus,
+    getDayTotalOrderAmount
 }
 module.exports = order;
 
