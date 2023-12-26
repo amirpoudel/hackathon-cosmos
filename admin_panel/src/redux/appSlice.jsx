@@ -10,7 +10,7 @@ const initialState = {
   dailyRevenueDetails: {},
 
   isOrderStatsLoading: false,
-  orderStatsDetails: {},
+  orderStatsDetails: [],
 };
 
 export const fetchAppViewAsync = createAsyncThunk(
@@ -50,6 +50,7 @@ export const fetchOrderStatsAsync = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${BASE_URL}/order/totalSales`, { withCredentials: true });
+      console.log("this is sales",response)
       if (response.status === 200) {
         return response.data;
       }
