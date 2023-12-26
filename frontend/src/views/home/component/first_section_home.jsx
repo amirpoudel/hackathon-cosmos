@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { useSelector } from "react-redux";
-import { fetchFoodList, setFilterFoodList } from "src/redux/homeSlice";
+import { fetchCategoryList, setFilterFoodList } from "src/redux/homeSlice";
 
 function FirstSectionCategories() {
   const dispatch = useDispatch();
@@ -17,36 +17,37 @@ function FirstSectionCategories() {
 
   const categoryList = useSelector((state) => state.home.categoryList);
 
-  // Filter out the FirstSectionCategories from the food list
-  const filteredCategoryList = useMemo(() => {
-    return [
-      "All",
-      ...new Set(categoryList.map((item) => item.menuCategory.name)),
-    ];
-  }, [foodList]);
+  console.log(categoryList);
 
-  useEffect(() => {
-    dispatch(fetchFoodList({ userName, tableNumber }));
-  }, [dispatch]);
+  // Filter out the FirstSectionCategories from the food list
+  // const filteredCategoryList = useMemo(() => {
+  //   return [
+  //     "All",
+  //     ...new Set(categoryList.map((item) => item.menuCategory.name)),
+  //   ];
+  // }, [categoryList]);
+
+  // useEffect(() => {
+  //   dispatch(fetchCategoryList({ userName, tableNumber }));
+  // }, [dispatch]);
 
   function handleCategoryChange(item) {
-    setSelectedCategory(item);
-    dispatch(setFilterFoodList(item));
+    setSelectedCategory(item?.name);
   }
 
   return (
     <Box sx={{ width: "100%", overflowX: "auto", whiteSpace: "nowrap" }}>
-      {filteredCategoryList.map((item, index) => {
+      {categoryList.map((item) => {
         return (
           <Button
-            key={index}
+            key={item?._id}
             variant="text"
             onClick={() => handleCategoryChange(item)}
             sx={{ textTransform: "capitalize", padding: "0", color: "black" }}
             size="small"
-            className={selectedCategory === item ? "underline" : ""}
+            className={selectedCategory === item?.name ? "underline" : ""}
           >
-            {item}
+            {item?.name}
           </Button>
         );
       })}
