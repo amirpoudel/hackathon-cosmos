@@ -8,6 +8,7 @@ import {
   Slide,
   DialogContent,
   Badge,
+  Divider,
 } from "@mui/material";
 
 import FirstSectionCategories from "./component/first_section_categories";
@@ -95,7 +96,8 @@ function HomeView() {
         fullWidth
       >
         <DialogTitle>Checkout</DialogTitle>
-        <DialogContent sx={{ border: "1px solid red" }}>
+        <Divider />
+        <DialogContent>
           <CheckoutPopup
             checkedItems={checkedItems}
             setCheckedItems={setCheckedItems}
