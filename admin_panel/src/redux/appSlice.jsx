@@ -93,7 +93,7 @@ export const appSlice = createSlice({
       .addCase(fetchOrderStatsAsync.fulfilled, (state, action) => {
         state.isOrderStatsLoading = false;
 
-        state.orderStatsDetails = action?.payload?.data[0];
+        state.orderStatsDetails = action?.payload?.data;
       })
       .addCase(fetchOrderStatsAsync.rejected, (state) => {
         state.isOrderStatsLoading = false;
