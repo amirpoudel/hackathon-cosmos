@@ -15,71 +15,7 @@ const initialState = {
 
   isFoodItemLoading: false,
   foodItemError: null,
-  foodItemList: [
-    {
-      flags: {
-        isVeg: false,
-        containsEggs: false,
-        isSpecial: false,
-        isRecommended: false,
-        isAvailable: true,
-      },
-      _id: '6589b903a56fd7d204f33581',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      categoryId: '6589b0362e6b59d1afaf8f86',
-      name: 'chicken momo',
-      price: 180,
-      discountPercentage: 10,
-      description: 'This is nepali chicken momo',
-      imageLink:
-        'https://res.cloudinary.com/dekoq3dmf/image/upload/v1703524612/f19my1ufrq7zyclgygtp.jpg',
-      createdAt: '2023-12-25T17:16:51.223Z',
-      updatedAt: '2023-12-25T17:16:52.844Z',
-      __v: 0,
-    },
-    {
-      flags: {
-        isVeg: false,
-        containsEggs: false,
-        isSpecial: false,
-        isRecommended: false,
-        isAvailable: true,
-      },
-      _id: '6589c109e98b7927596a8b83',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      categoryId: '6589b0362e6b59d1afaf8f86',
-      name: 'chicken  fry momo',
-      price: 190,
-      discountPercentage: 0,
-      description: 'This is nepali chicken momo',
-      imageLink:
-        'https://res.cloudinary.com/dekoq3dmf/image/upload/v1703526666/yvnsx9j7kqipdy2lbmsd.jpg',
-      createdAt: '2023-12-25T17:51:05.684Z',
-      updatedAt: '2023-12-25T17:51:07.325Z',
-      __v: 0,
-    },
-    {
-      flags: {
-        isVeg: false,
-        containsEggs: false,
-        isSpecial: false,
-        isRecommended: false,
-        isAvailable: true,
-      },
-      _id: '6589c11ae98b7927596a8b88',
-      restaurantId: '6589b0162e6b59d1afaf8f7e',
-      categoryId: '6589b0362e6b59d1afaf8f86',
-      name: 'chicken  jhol momo',
-      price: 180,
-      discountPercentage: 0,
-      description: 'This is nepali chicken momo',
-      imageLink:
-        'https://res.cloudinary.com/dekoq3dmf/image/upload/v1703526683/tgrvhswvzdb5zwl7c1ml.jpg',
-      createdAt: '2023-12-25T17:51:22.595Z',
-      updatedAt: '2023-12-25T17:51:23.720Z',
-      __v: 0,
-    },
-  ],
+  foodItemList: [],
 };
 
 export const fetchCategoryListAsync = createAsyncThunk(
