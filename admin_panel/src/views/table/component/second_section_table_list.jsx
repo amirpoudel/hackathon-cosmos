@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
@@ -15,12 +15,13 @@ import UserTableHead from 'src/components/table/user-table-head';
 import TableEmptyRows from 'src/components/table/table-empty-rows';
 
 import { emptyRows, applyFilter, getComparator } from 'src/components/table/utils';
+
+import { fetchTableListAsync } from 'src/redux/tableSlice';
+
 import { BASE_URL } from 'src/config/base_url';
 
 import UserTableRow from './user-table-row';
 import UserTableToolbar from './user-table-toolbar';
-import { useDispatch } from 'react-redux';
-import { fetchTableListAsync } from 'src/redux/tableSlice';
 
 // ----------------------------------------------------------------------
 
