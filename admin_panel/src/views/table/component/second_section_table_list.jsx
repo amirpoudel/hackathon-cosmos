@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Card from '@mui/material/Card';
@@ -19,6 +19,8 @@ import { BASE_URL } from 'src/config/base_url';
 
 import UserTableRow from './user-table-row';
 import UserTableToolbar from './user-table-toolbar';
+import { useDispatch } from 'react-redux';
+import { fetchTableListAsync } from 'src/redux/tableSlice';
 
 // ----------------------------------------------------------------------
 
@@ -31,6 +33,7 @@ const tableHeadLabel = [
 ];
 
 export default function SecondTableList() {
+  const dispatch = useDispatch();
   const [page, setPage] = useState(0);
 
   const [selectedId, setSelectedId] = useState(null);
@@ -46,6 +49,10 @@ export default function SecondTableList() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const tableList = useSelector((state) => state.table.tableList);
+
+  useEffect(() => {
+    dispatch(fetchTableListAsync());
+  }, [dispatch]);
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
