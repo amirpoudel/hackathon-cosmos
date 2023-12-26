@@ -10,7 +10,7 @@ const initialState = {
   dailyRevenueDetails: {},
 
   isOrderStatsLoading: false,
-  orderStatsDetails: {},
+  orderStatsDetails: [],
 };
 
 export const fetchAppViewAsync = createAsyncThunk(

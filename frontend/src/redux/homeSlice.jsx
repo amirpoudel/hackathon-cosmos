@@ -14,6 +14,9 @@ const initialState = {
 
   isAddOrderLoading: false,
   addOrderError: null,
+
+  orderedStatus: "",
+  customerPhoneNumber: "",
 };
 
 export const fetchCategoryList = createAsyncThunk(
@@ -68,14 +71,11 @@ const homeSlice = createSlice({
   name: "home",
   initialState,
   reducers: {
-    setFilterFoodList: (state, action) => {
-      if (action.payload === "All") {
-        state.filteredFoodList = state.foodList;
-      } else {
-        state.filteredFoodList = state.foodList.filter(
-          (item) => item.menuCategory.name === action.payload
-        );
-      }
+    setOrderedStatus: (state, action) => {
+      state.orderedStatus = action.payload;
+    },
+    setCustomerPhoneNumber: (state, action) => {
+      state.customerPhoneNumber = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -102,5 +102,6 @@ const homeSlice = createSlice({
     });
   },
 });
-export const { setFilterFoodList } = homeSlice.actions;
+export const { setCustomerPhoneNumber, setOrderedStatus } = homeSlice.actions;
+
 export default homeSlice.reducer;

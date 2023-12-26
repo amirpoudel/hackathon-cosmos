@@ -66,7 +66,7 @@ export default function SecondTableList() {
   const handleClick = (event, name, tableNumber) => {
     if (selectedId === null) {
       setSelectedId(tableNumber);
-      setSelectedQrLink(`${window.location.href}/restaurant/${name}/${tableNumber}`);
+      setSelectedQrLink(`http://127.0.0.1:5173/restaurant/${name}/${tableNumber}`);
     } else {
       setSelectedId(null);
     }
