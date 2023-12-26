@@ -5,71 +5,14 @@ import { BASE_URL } from "src/config/base_url";
 const initialState = {
   isCategoryListLoading: false,
   categoryListError: null,
-  categoryList: [
-    {
-      _id: "6589b0362e6b59d1afaf8f86",
-      name: "momos",
-      description: "Most Famous Nepali Dish Amongs Nepali And OutSiders",
-      items: [
-        {
-          _id: "6589b903a56fd7d204f33581",
-          name: "chicken momo",
-          price: 180,
-          description: "This is nepali chicken momo",
-          flags: {
-            isVeg: false,
-            containsEggs: false,
-            isSpecial: false,
-            isRecommended: false,
-            isAvailable: true,
-          },
-          imageLink:
-            "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703524612/f19my1ufrq7zyclgygtp.jpg",
-        },
-        {
-          _id: "6589c109e98b7927596a8b83",
-          name: "chicken  fry momo",
-          price: 190,
-          description: "This is nepali chicken momo",
-          flags: {
-            isVeg: false,
-            containsEggs: false,
-            isSpecial: false,
-            isRecommended: false,
-            isAvailable: true,
-          },
-          imageLink:
-            "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703526666/yvnsx9j7kqipdy2lbmsd.jpg",
-        },
-        {
-          _id: "6589c11ae98b7927596a8b88",
-          name: "chicken  jhol momo",
-          price: 180,
-          description: "This is nepali chicken momo",
-          flags: {
-            isVeg: false,
-            containsEggs: false,
-            isSpecial: false,
-            isRecommended: false,
-            isAvailable: true,
-          },
-          imageLink:
-            "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703526683/tgrvhswvzdb5zwl7c1ml.jpg",
-        },
-      ],
-      itemsCount: 3,
-    },
-    {
-      _id: "6589bfffbe6fa3ad08f76920",
-      name: "Nepali Khana Set",
-      description: "Nepali Authentic Khana Set",
-      items: [],
-      itemsCount: 0,
-    },
-  ],
+  categoryList: [],
+
   filteredFoodList: [],
   isFoodListLoading: false,
   foodListError: null,
+
+  isAddOrderLoading: false,
+  addOrderError: null,
 };
 
 export const fetchCategoryList = createAsyncThunk(
@@ -89,6 +32,26 @@ export const fetchCategoryList = createAsyncThunk(
     }
   }
 );
+
+export const addOrderAsync = createAsyncThunk(
+  "home/addOrderAsync",
+  async ({ userName, tableNumber, data }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/order/${userName}/${tableNumber}`,
+        data
+      );
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      const errorMessage =
+        err?.response?.data?.message || "Something went wrong";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 const homeSlice = createSlice({
   name: "home",
   initialState,
@@ -115,6 +78,15 @@ const homeSlice = createSlice({
     builder.addCase(fetchCategoryList.rejected, (state, action) => {
       state.isCategoryListLoading = false;
       state.categoryListError = action.payload;
+    });
+    builder.addCase(addOrderAsync.pending, (state) => {
+      state.isAddOrderLoading = true;
+    });
+    builder.addCase(addOrderAsync.fulfilled, (state) => {
+      state.isAddOrderLoading = false;
+    });
+    builder.addCase(addOrderAsync.rejected, (state) => {
+      state.isAddOrderLoading = false;
     });
   },
 });
