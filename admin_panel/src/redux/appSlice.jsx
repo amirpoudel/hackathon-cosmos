@@ -33,7 +33,7 @@ export const appSlice = createSlice({
         state.isAppDetailsLoading = true;
       })
       .addCase(fetchAppViewAsync.fulfilled, (state, action) => {
-        state.appDetails = action?.payload?.data;
+        state.appDetails = action?.payload?.data[0];
       })
       .addCase(fetchAppViewAsync.rejected, (state) => {
         state.isAppDetailsLoading = false;

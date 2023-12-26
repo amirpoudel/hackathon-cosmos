@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Box, Typography, Card, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
+import { fetchCategoryListAsync } from 'src/redux/menuSlice';
+
 import CategoryItem from './category_item';
 
 function CategoryList() {
+  const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.menu.categoryList);
+
+  useEffect(() => {
+    dispatch(fetchCategoryListAsync());
+  }, [dispatch]);
 
   const [selectedCategoryId, setSelectedCategoryId] = useState('');
   const [selectedCategoryName, setSelectedCategoryName] = useState('all');
