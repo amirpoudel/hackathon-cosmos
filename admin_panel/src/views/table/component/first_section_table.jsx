@@ -45,6 +45,7 @@ function FirstSectionTable() {
       if (addTableAsync.fulfilled.match(res)) {
         setTableNumber('');
         setCapacity('');
+        setOpen(false);
       }
     });
   };

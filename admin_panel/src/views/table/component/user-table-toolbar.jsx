@@ -20,6 +20,7 @@ import QrCode2Icon from '@mui/icons-material/QrCode2';
 import Iconify from 'src/components/iconify';
 
 import QRCodeToPDF from './qr_to_pdf_popup';
+import { deleteTableByAsyncById } from 'src/redux/tableSlice';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +37,7 @@ export default function UserTableToolbar({
   const [openQrCodeDialog, setOpenQrCodeDialog] = useState(false);
 
   const handleTableDelete = () => {
-    dispatch();
+    dispatch(deleteTableByAsyncById({ tableId: selectedId }));
   };
 
   const handleOpenQrDialog = () => {
