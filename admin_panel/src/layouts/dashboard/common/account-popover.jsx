@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
 import { account } from 'src/_mock/account';
+import { useSelector } from 'react-redux';
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,10 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+
+  const userName = useSelector((state) => state.auth.userName);
+  const userEmail = useSelector((state) => state.auth.userEmail);
+  const userPhone = useSelector((state) => state.auth.userPhone);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -57,14 +62,14 @@ export default function AccountPopover() {
       >
         <Avatar
           src={account.photoURL}
-          alt={account.displayName}
+          alt={userName}
           sx={{
             width: 36,
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {account.displayName.charAt(0).toUpperCase()}
+          {userName.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
 
@@ -85,10 +90,13 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {userName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {userEmail}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+            {userPhone}
           </Typography>
         </Box>
 
