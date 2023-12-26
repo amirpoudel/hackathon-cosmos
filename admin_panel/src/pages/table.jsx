@@ -7,7 +7,7 @@ function TablePage() {
   return (
     <>
       <Helmet>
-        <title> Table | Minimal UI </title>
+        <title> Table | QR Food  </title>
       </Helmet>
       <TableView />
     </>

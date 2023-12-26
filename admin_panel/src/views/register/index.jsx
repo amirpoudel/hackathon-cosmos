@@ -105,7 +105,7 @@ export default function RegisterView() {
               maxWidth: 'md',
             }}
           >
-            <Typography variant="h4">Sign in to Minimal</Typography>
+            <Typography variant="h4">Sign in to QR Food </Typography>
             <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
               Already have an account?
               <Link to="/login" style={{ marginLeft: '8px' }}>

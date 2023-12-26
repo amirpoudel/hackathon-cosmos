@@ -7,7 +7,7 @@ function RegisterPage() {
   return (
     <>
       <Helmet>
-        <title> Register | Minimal UI </title>
+        <title> Register | QR Food  </title>
       </Helmet>
 
       <RegisterView />

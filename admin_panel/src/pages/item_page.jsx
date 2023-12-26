@@ -7,7 +7,7 @@ function ItemPage() {
   return (
     <>
       <Helmet>
-        <title> Item | Minimal UI </title>
+        <title> Item | QR Food  </title>
       </Helmet>
 
       <ItemListView />

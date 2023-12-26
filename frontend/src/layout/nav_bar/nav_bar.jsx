@@ -8,9 +8,10 @@ function NavBar() {
   const dispatch = useDispatch();
   const orderedStatus = useSelector((state) => state.home.orderedStatus);
 
+
   useEffect(() => {
+    dispatch(fetchOrderStatusAsync());
     if (orderedStatus) {
-      dispatch(fetchOrderStatusAsync());
       const intervalId = setInterval(() => {
         dispatch(fetchOrderStatusAsync());
       }, 5000);

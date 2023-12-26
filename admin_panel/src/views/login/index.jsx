@@ -74,7 +74,7 @@ export default function LoginView() {
               maxWidth: 'md',
             }}
           >
-            <Typography variant="h4">Sign in to Minimal</Typography>
+            <Typography variant="h4">Sign in to QR Food</Typography>
 
             <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
               Don’t have an account?
