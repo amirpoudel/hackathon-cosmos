@@ -14,11 +14,11 @@ import TableNoData from 'src/components/table/table-no-data';
 import UserTableHead from 'src/components/table/user-table-head';
 import TableEmptyRows from 'src/components/table/table-empty-rows';
 
-import { emptyRows, applyFilter, getComparator } from 'src/components/table/utils';
-
 import { fetchTableListAsync } from 'src/redux/tableSlice';
 
-import { BASE_URL } from 'src/config/base_url';
+import { emptyRows, applyFilter, getComparator } from 'src/components/table/utils';
+
+// import { BASE_URL } from 'src/config/base_url';
 
 import UserTableRow from './user-table-row';
 import UserTableToolbar from './user-table-toolbar';
@@ -66,7 +66,7 @@ export default function SecondTableList() {
   const handleClick = (event, name, tableNumber) => {
     if (selectedId === null) {
       setSelectedId(tableNumber);
-      setSelectedQrLink(`${BASE_URL}/restaurant/${name}/${tableNumber}`);
+      setSelectedQrLink(`${window.location.href}/restaurant/${name}/${tableNumber}`);
     } else {
       setSelectedId(null);
     }

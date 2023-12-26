@@ -14,6 +14,9 @@ const initialState = {
 
   isEditTableLoading: false,
   editTableError: null,
+
+  isDeleteTableLoading: false,
+  deleteTableError: null,
 };
 
 export const fetchTableListAsync = createAsyncThunk(
@@ -52,7 +55,44 @@ export const addTableAsync = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Failed to add category';
+      const errorMessage = err?.response?.data?.message || 'Failed to add table';
+      toast.error(`🍜 ${errorMessage}`, {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return rejectWithValue(errorMessage);
+    }
+    return undefined;
+  }
+);
+export const deleteTableByAsyncById = createAsyncThunk(
+  'menu/deleteTableByAsyncById',
+  async ({ tableId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${BASE_URL}/table/${tableId}`, {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        toast.success('🍜 Table Deleted Successfully!', {
+          position: 'top-right',
+          autoClose: 1200,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+        return tableId;
+      }
+    } catch (err) {
+      const errorMessage = err?.response?.data?.message || 'Failed to delete table';
       toast.error(`🍜 ${errorMessage}`, {
         position: 'top-right',
         autoClose: 1200,
@@ -133,6 +173,17 @@ const tableSlice = createSlice({
       })
       .addCase(addTableAsync.rejected, (state, action) => {
         state.isAddTableLoading = false;
+        state.addTableError = action.payload;
+      })
+      .addCase(deleteTableByAsyncById.pending, (state) => {
+        state.isDeleteTableLoading = true;
+      })
+      .addCase(deleteTableByAsyncById.fulfilled, (state, action) => {
+        state.isDeleteTableLoading = false;
+        state.tableList = state.tableList.filter((table) => table._id !== action.payload);
+      })
+      .addCase(deleteTableByAsyncById.rejected, (state, action) => {
+        state.isDeleteTableLoading = false;
         state.addTableError = action.payload;
       })
 
