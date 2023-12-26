@@ -142,9 +142,11 @@ const initialState = {
 
 export const fetchFoodList = createAsyncThunk(
   "home/fetchFoodList",
-  async (_, { rejectWithValue }) => {
+  async ({ userName, tableNumber }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/menu/item`);
+      const response = await axios.get(
+        `${BASE_URL}/menu/${userName}/${tableNumber}`
+      );
       if (response.status === 200) {
         return response.data;
       }

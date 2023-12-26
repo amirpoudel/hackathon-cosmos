@@ -1,21 +1,30 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
 import { useSelector } from "react-redux";
-import { setFilterFoodList } from "src/redux/homeSlice";
+import { fetchFoodList, setFilterFoodList } from "src/redux/homeSlice";
 
 function FirstSectionCategories() {
   const dispatch = useDispatch();
+
+  const { userName } = useParams();
+  const { tableNumber } = useParams();
+
   const [selectedCategory, setSelectedCategory] = useState("All");
+
   const foodList = useSelector((state) => state.home.foodList);
 
   // Filter out the FirstSectionCategories from the food list
   const categoryList = useMemo(() => {
     return ["All", ...new Set(foodList.map((item) => item.menuCategory.name))];
   }, [foodList]);
+
+  useEffect(() => {
+    dispatch(fetchFoodList({ userName, tableNumber }));
+  }, [dispatch]);
 
   function handleCategoryChange(item) {
     setSelectedCategory(item);
