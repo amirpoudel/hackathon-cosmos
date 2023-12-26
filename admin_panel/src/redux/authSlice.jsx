@@ -39,8 +39,9 @@ export const loginRestaurantAsync = createAsyncThunk(
           progress: undefined,
           theme: 'light',
         });
-
-        return response.data;
+        if (response.status === 200) {
+          return response.data;
+        }
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Login';
