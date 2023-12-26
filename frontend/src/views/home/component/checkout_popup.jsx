@@ -15,12 +15,19 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import FoodCard from "src/component/cards/food_card";
+import { useDispatch } from "react-redux";
+import { addOrderAsync } from "src/redux/homeSlice";
+import { useParams } from "react-router-dom";
 
 const Transition = React.forwardRef((props, ref) => (
   <Slide direction="up" ref={ref} {...props} />
 ));
 
 function CheckoutPopup({ checkedItems, setCheckedItems }) {
+  const dispatch = useDispatch();
+  const { userName } = useParams();
+  const { tableNumber } = useParams();
+
   const [openUserPopup, setOpenUserPopup] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [orderNote, setOrderNote] = useState("");
@@ -43,7 +50,7 @@ function CheckoutPopup({ checkedItems, setCheckedItems }) {
       orderNote,
     };
 
-    console.log("ordered data", data);
+    dispatch(addOrderAsync({ userName, tableNumber, data }));
   };
 
   const handleRemoveQuantity = (itemId) => {
