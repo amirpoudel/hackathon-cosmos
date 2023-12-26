@@ -11,7 +11,7 @@ export const fetchAppViewAsync = createAsyncThunk(
   'app/fetchAppViewAsync',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/order/stats`);
+      const response = await axios.get(`${BASE_URL}/order/stats`, { withCredentials: true });
       if (response.status === 200) {
         return response.data;
       }
