@@ -18,6 +18,13 @@ function ItemList({ selectedCategoryId }) {
     dispatch(fetchFoodItemListAsync({ categoryId: selectedCategoryId }));
   }, [dispatch, selectedCategoryId]);
 
+  const handleDeleteItem = (itemId) => {
+    console.log('delete item id', itemId);
+  };
+  const handleEditItem = (itemId) => {
+    console.log('edit item id', itemId);
+  };
+
   return (
     <Box sx={{ height: '35rem', border: '1px solid red', flexGrow: '1' }}>
       <Grid container sx={{ mt: 4 }} justifyContent="flex-start" alignContent="flex-start">
@@ -36,10 +43,10 @@ function ItemList({ selectedCategoryId }) {
               foodName={foodItem?.name || ''}
             />
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <IconButton>
+              <IconButton onClick={() => handleDeleteItem(foodItem?._id)}>
                 <DeleteIcon sx={{ width: '1rem', height: '1rem' }} />
               </IconButton>
-              <IconButton>
+              <IconButton onClick={() => handleEditItem(foodItem?._id)}>
                 <EditIcon sx={{ width: '1rem', height: '1rem' }} />
               </IconButton>
             </Box>

@@ -89,7 +89,7 @@ export const fetchCategoryListAsync = createAsyncThunk(
       const response = await axios.get(`${BASE_URL}/menu/category`, {
         withCredentials: true,
       });
-      console.log(response);
+      console.log('category list response ', response);
       if (response.status === 200) {
         return response.data;
       }
@@ -97,16 +97,21 @@ export const fetchCategoryListAsync = createAsyncThunk(
       const errorMessage = err?.response?.data?.message || 'Something went wrong';
       return rejectWithValue(errorMessage);
     }
-    return undefined;
+    return '';
   }
 );
 export const fetchFoodItemListAsync = createAsyncThunk(
   'menu/fetchFoodItemListAsync',
   async ({ categoryId }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/menu/item`, categoryId, {
-        withCredentials: true,
-      });
+      console.log('categoryid for food item', categoryId);
+      const response = await axios.get(
+        `${BASE_URL}/menu/item`,
+        { categoryId },
+        {
+          withCredentials: true,
+        }
+      );
       console.log(response);
       if (response.status === 200) {
         return response.data;
@@ -115,7 +120,7 @@ export const fetchFoodItemListAsync = createAsyncThunk(
       const errorMessage = err?.response?.data?.message || 'Something went wrong';
       return rejectWithValue(errorMessage);
     }
-    return undefined;
+    return '';
   }
 );
 
