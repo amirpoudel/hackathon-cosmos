@@ -94,6 +94,7 @@ export default function SecondTableList() {
           filterName={filterName}
           onFilterName={handleFilterByName}
           selectedQrLink={selectedQrLink}
+          selectedId={selectedId}
         />
 
         <Scrollbar>

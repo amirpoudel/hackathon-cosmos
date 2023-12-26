@@ -30,6 +30,7 @@ export default function UserTableToolbar({
   filterName,
   onFilterName,
   selectedQrLink,
+  selectedId,
 }) {
   const dispatch = useDispatch();
   const [openQrCodeDialog, setOpenQrCodeDialog] = useState(false);
@@ -111,9 +112,9 @@ export default function UserTableToolbar({
         onClose={handleCloseQrDialog}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>QR for Table</DialogTitle>
+        <DialogTitle>QR for Table {selectedId}</DialogTitle>
         <DialogContent>
-          <QRCodeToPDF selectedQrLink={selectedQrLink} />
+          <QRCodeToPDF selectedQrLink={selectedQrLink} selectedId={selectedId} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseQrDialog}>Cancel</Button>
@@ -128,4 +129,5 @@ UserTableToolbar.propTypes = {
   filterName: PropTypes.string,
   onFilterName: PropTypes.func,
   selectedQrLink: PropTypes.any,
+  selectedId: PropTypes.any,
 };

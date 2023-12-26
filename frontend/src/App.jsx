@@ -16,7 +16,10 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<HomePage />} />
+        <Route
+          path="/restaurant/:userName/:tableNumber"
+          element={<HomePage />}
+        />
       </Route>
     )
   );
