@@ -118,9 +118,13 @@ export const addNewCategoryAsync = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       console.log(data);
-      const response = await axios.post(`${BASE_URL}/menu/category`, {data}, {
-        withCredentials:true
-      });
+      const response = await axios.post(
+        `${BASE_URL}/menu/category`,
+        { data },
+        {
+          withCredentials: true,
+        }
+      );
       if (response.status === 200) {
         toast.success('🍜 Category Added Successfully!', {
           position: 'top-right',
@@ -240,7 +244,7 @@ const menuSlice = createSlice({
       })
       .addCase(fetchCategoryListAsync.fulfilled, (state, action) => {
         state.isCategoryListLoading = false;
-        state.categoryList = action.payload;
+        state.categoryList = action.payload?.data;
       })
       .addCase(fetchCategoryListAsync.rejected, (state, action) => {
         state.isCategoryListLoading = false;
