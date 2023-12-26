@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Container } from "@mui/material";
 
-import FirstSectionHome from "./component/first_section_home";
+import FirstSectionCategories from "./component/first_section_home";
 
 function HomeView() {
   return (
@@ -16,7 +16,7 @@ function HomeView() {
           }}
           disableGutters
         >
-          <FirstSectionHome />
+          <FirstSectionCategories />
         </Container>
       </Box>
     </main>

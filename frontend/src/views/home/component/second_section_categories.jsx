@@ -5,12 +5,12 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setFilterFoodList } from "src/redux/homeSlice";
 
-function FirstSectionCategories() {
+function SecondSectionCategories() {
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const foodList = useSelector((state) => state.home.foodList);
 
-  // Filter out the FirstSectionCategories from the food list
+  // Filter out the SecondSectionCategories from the food list
   const categoryList = useMemo(() => {
     return ["All", ...new Set(foodList.map((item) => item.menuCategory.name))];
   }, [foodList]);
@@ -40,4 +40,4 @@ function FirstSectionCategories() {
   );
 }
 
-export default FirstSectionCategories;
+export default SecondSectionCategories;

@@ -4,3 +4,9 @@ body {
   box-sizing: border-box;
   width: 100%;
 }
+
+.underline {
+  transition: 0.1s ease-out;
+  font-weight: bold !important;
+  border-bottom: 3px solid orange !important;
+}
