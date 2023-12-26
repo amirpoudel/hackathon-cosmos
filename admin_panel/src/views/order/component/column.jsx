@@ -65,7 +65,7 @@ function Column() {
     const cookingOrders = orderList.filter((item) => item.status === 'cooking');
     const readyToServeOrders = orderList.filter((item) => item.status === 'ready_to_serve');
     const servedOrders = orderList.filter((item) => item.status === 'served');
-    const paidOrders = orderList.filter((item) => item.status === 'paid');
+    const paidOrders = orderList.filter((item) => item.paymentStatus === 'paid');
 
     const col = {
       [uuidv4()]: {
