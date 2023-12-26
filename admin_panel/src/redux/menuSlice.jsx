@@ -105,13 +105,9 @@ export const fetchFoodItemListAsync = createAsyncThunk(
   async ({ categoryId }, { rejectWithValue }) => {
     try {
       console.log('categoryid for food item', categoryId);
-      const response = await axios.get(
-        `${BASE_URL}/menu/item`,
-        { categoryId },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/menu/item/${categoryId}`, {
+        withCredentials: true,
+      });
       console.log(response);
       if (response.status === 200) {
         return response.data;
@@ -256,6 +252,17 @@ const menuSlice = createSlice({
       .addCase(fetchCategoryListAsync.rejected, (state, action) => {
         state.isCategoryListLoading = false;
         state.categoryListError = action.payload;
+      })
+      .addCase(fetchFoodItemListAsync.pending, (state) => {
+        state.isFoodItemLoading = true;
+      })
+      .addCase(fetchFoodItemListAsync.fulfilled, (state, action) => {
+        state.isFoodItemLoading = false;
+        state.foodItemList = action.payload?.data;
+      })
+      .addCase(fetchFoodItemListAsync.rejected, (state, action) => {
+        state.isFoodItemLoading = false;
+        state.foodItemError = action.payload?.data;
       })
       .addCase(addNewCategoryAsync.pending, (state) => {
         state.isCategoryLoading = true;
