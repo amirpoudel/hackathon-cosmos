@@ -36,6 +36,23 @@ export const fetchCategoryList = createAsyncThunk(
     }
   }
 );
+export const fetchOrderedStatus = createAsyncThunk(
+  "home/fetchOrderedStatus",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/order/track/${state.customerPhoneNumber}`
+      );
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      const errorMessage =
+        err?.response?.data?.message || "Something went wrong";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 export const addOrderAsync = createAsyncThunk(
   "home/addOrderAsync",
