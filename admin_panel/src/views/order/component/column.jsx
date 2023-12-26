@@ -65,7 +65,7 @@ function Column() {
     const cookingOrders = orderList.filter((item) => item.status === 'cooking');
     const readyToServeOrders = orderList.filter((item) => item.status === 'ready_to_serve');
     const servedOrders = orderList.filter((item) => item.status === 'served');
-    const paidOrders = orderList.filter((item) => item.paymentStatus === 'paid');
+    // const paidOrders = orderList.filter((item) => item.paymentStatus === 'paid');
 
     const col = {
       [uuidv4()]: {
@@ -84,10 +84,10 @@ function Column() {
         title: 'served',
         items: servedOrders,
       },
-      [uuidv4()]: {
-        title: 'paid',
-        items: paidOrders,
-      },
+      // [uuidv4()]: {
+      //   title: 'paid',
+      //   items: paidOrders,
+      // },
     };
     setColumns(col);
   }, [orderList, setColumns]);
@@ -104,19 +104,12 @@ function Column() {
 
       console.log('removed', removed);
       console.log('dest col', destColumn);
-      if (destColumn.title === 'paid') {
-        const data = {
-          orderId: removed._id,
-          paymentStatus: destColumn.title,
-        };
-        dispatch(updateOrderAsync(data));
-      } else {
-        const data = {
-          orderId: removed._id,
-          status: destColumn.title,
-        };
-        dispatch(updateOrderAsync(data));
-      }
+
+      const data = {
+        orderId: removed._id,
+        status: destColumn.title,
+      };
+      dispatch(updateOrderAsync(data));
 
       destItems.splice(destination.index, 0, removed);
       setColumns({
