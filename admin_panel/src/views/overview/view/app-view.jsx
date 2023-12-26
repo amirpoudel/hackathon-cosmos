@@ -6,7 +6,11 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 // import Iconify from 'src/components/iconify';
-import { fetchAppViewAsync } from 'src/redux/appSlice';
+import {
+  fetchAppViewAsync,
+  fetchDailyRevenueAsync,
+  fetchOrderStatsAsync,
+} from 'src/redux/appSlice';
 
 import AppTasks from '../app-tasks';
 // import AppNewsUpdate from '../app-news-update';
@@ -25,9 +29,19 @@ export default function AppView() {
   const dispatch = useDispatch();
 
   const appDetails = useSelector((state) => state.app.appDetails);
+  const dailyRevenueDetails = useSelector((state) => state.app.dailyRevenueDetails);
+  const orderStatsDetails = useSelector((state) => state.app.orderStatsDetails);
 
   useEffect(() => {
     dispatch(fetchAppViewAsync());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchDailyRevenueAsync());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchOrderStatsAsync());
   }, [dispatch]);
 
   return (
@@ -66,8 +80,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Bug Reports"
-            total={234}
+            title="Daily Revenue"
+            total={dailyRevenueDetails?.totalAmount}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
           />
@@ -117,14 +131,12 @@ export default function AppView() {
 
         <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
-            title="Current Visits"
+            title="Order Stats"
             chart={{
-              series: [
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
-              ],
+              series: orderStatsDetails?.map((orderStat, index) => ({
+                label: orderStat?.itemName,
+                value: orderStat?.totalAmount,
+              })),
             }}
           />
         </Grid>
