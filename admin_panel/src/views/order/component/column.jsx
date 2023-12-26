@@ -45,6 +45,7 @@ function Column() {
   const [columns, setColumns] = useState(null);
 
   const orderList = useSelector((state) => state.order.orderList);
+  console.log(orderList)
 
   useEffect(() => {
     const pendingOrders = orderList.filter((item) => item.status === 'pending');
