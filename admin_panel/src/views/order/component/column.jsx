@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
 import styled from '@emotion/styled';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-import { columnsFromBackend } from './board';
+// import { columnsFromBackend } from './board';
+import { updateOrderAsync } from 'src/redux/orderSlice';
 
 import TaskCard from './task_card';
 
@@ -37,7 +41,32 @@ const Title = styled.span`
 `;
 
 function Kanban() {
-  const [columns, setColumns] = useState(columnsFromBackend);
+  const dispatch = useDispatch();
+  const [columns, setColumns] = useState(null);
+
+  const orderList = useSelector((state) => state.order.orderList);
+
+  useEffect(() => {
+    const col = {
+      [uuidv4()]: {
+        title: 'pending',
+        items: orderList,
+      },
+      [uuidv4()]: {
+        title: 'cooking',
+        items: [],
+      },
+      [uuidv4()]: {
+        title: 'ready_to_serve',
+        items: [],
+      },
+      [uuidv4()]: {
+        title: 'served',
+        items: [],
+      },
+    };
+    setColumns(col);
+  }, [orderList, setColumns]);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -48,6 +77,15 @@ function Kanban() {
       const sourceItems = [...sourceColumn.items];
       const destItems = [...destColumn.items];
       const [removed] = sourceItems.splice(source.index, 1);
+
+      console.log('removed', removed);
+      console.log('dest col', destColumn);
+      const data = {
+        orderId: removed._id,
+        status: destColumn.title,
+      };
+      dispatch(updateOrderAsync(data));
+
       destItems.splice(destination.index, 0, removed);
       setColumns({
         ...columns,
@@ -74,17 +112,19 @@ function Kanban() {
       });
     }
   };
+
+  if (!columns) return null;
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
       <Container>
         <TaskColumnStyles>
-          {Object.entries(columns).map(([columnId, column], index) => (
+          {Object?.entries(columns)?.map(([columnId, column], index) => (
             <Droppable key={columnId} droppableId={columnId}>
               {(provided, snapshot) => (
                 <TaskList ref={provided.innerRef} {...provided.droppableProps}>
                   <Title>{column.title}</Title>
                   {column.items.map((item, mapIndex) => (
-                    <TaskCard key={item} item={item} index={mapIndex} />
+                    <TaskCard key={item?._id} item={item} index={mapIndex} />
                   ))}
                   {provided.placeholder}
                 </TaskList>
