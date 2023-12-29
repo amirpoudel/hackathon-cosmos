@@ -66,7 +66,7 @@ const getRestaurant = asyncHandler(async (req,res)=>{
         }
     ]);
     
-    if(restaurant.lenght === 0){
+    if(restaurant.length === 0){
         throw new ApiError(400,"Restaurants not found");
     }
 
