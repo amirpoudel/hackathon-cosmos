@@ -34,14 +34,18 @@ const ORDER_PAYMENT_TYPE = {
     CASH:"cash",
     CARD:"card",
     QR:"qr"
-
 }
 
+function isPaymentTypeValid(paymentType){
+    return Object.values(ORDER_PAYMENT_TYPE).includes(paymentType);
+}
 
 module.exports = {
     ROLES,
     TABLE_STATUS,
     ORDER_STATUS,
     ORDER_PAYMENT_STATUS,
-    ORDER_PAYMENT_TYPE
+    ORDER_PAYMENT_TYPE,
+
+    isPaymentTypeValid
 }

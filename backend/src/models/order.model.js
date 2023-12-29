@@ -46,9 +46,6 @@ const orderSchema = new mongoose.Schema({
     status:{
         type:String,
     },
-    paymentStatus:{
-        type:String,
-    },
 },{
     timestamps:true
 
