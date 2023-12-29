@@ -5,9 +5,11 @@ const ApiResponse = require("../utils/ApiResponse");
 const { Restaurant } = require('../models/restaurant.model');
 const { User } = require('../models/user.model');
 const { ROLES } = require('../constants');
-const {generateAccessAndRefreshTokens} = require("../utils/auth")
+const {generateAccessAndRefreshTokens} = require("../utils/auth");
+const { uploadOnCloudinary } = require('../utils/cloudinary');
 
 const registerOwnerAndRestaurant = asyncHandler(async (req,res,next)=>{
+    // use transaction later
 
     const {restaurantName,restaurantUserName,ownerName,ownerEmail,ownerPhoneNumber,password} = req.body;
     console.log(req.body);
@@ -20,17 +22,25 @@ const registerOwnerAndRestaurant = asyncHandler(async (req,res,next)=>{
         throw new ApiError(400,"Please Provide Owner Information");
     }
 
-    /*
-        first register restaurant 
-        second register owner
-        and update restaurant owner name
-    */
-
+    // restaurantImage
+    let restaurantImagePath = req.file?.path;
+    console.log("This is restaurant image path",restaurantImagePath);
+        
     const restaurant = await  Restaurant.create({
         name:restaurantName,
         username:restaurantUserName,
-
     })
+
+    if(restaurantImagePath){
+        uploadOnCloudinary(restaurantImagePath).then((result)=>{
+            if(!result) return;
+            restaurant.profileImage = result.secure_url;
+            restaurant.save();
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+
     if(!restaurant){
         throw new ApiError(500,"Unable To Register")
     }

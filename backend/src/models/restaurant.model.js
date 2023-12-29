@@ -23,6 +23,9 @@ const restaurantSchema = new mongoose.Schema({
         minlength:[6,"Username cannot be less than 6 characters"],
         maxlength:[20,"Username cannot be greater than 20 characters"],
     },
+    profileImage:{
+        type:String,
+    },
 
     resturantType: {
         type: String,
