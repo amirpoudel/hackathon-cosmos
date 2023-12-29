@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Box } from "@mui/material";
 
-import { fetchOrderStatusAsync } from "src/redux/homeSlice";
+import { fetchOrderStatusAsync } from "src/redux/navSlice";
 
 function NavBar() {
   const dispatch = useDispatch();
-  const orderedStatus = useSelector((state) => state.home.orderedStatus);
-
+  const orderedStatus = useSelector(
+    (state) => state.restaurantMenu.orderedStatus
+  );
 
   useEffect(() => {
     dispatch(fetchOrderStatusAsync());

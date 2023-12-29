@@ -20,7 +20,7 @@ import {
   addOrderAsync,
   setOrderedStatus,
   setCustomerPhoneNumber,
-} from "src/redux/homeSlice";
+} from "src/redux/restaurantMenuSlice";
 import { useParams } from "react-router-dom";
 
 const Transition = React.forwardRef((props, ref) => (

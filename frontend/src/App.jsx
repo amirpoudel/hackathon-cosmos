@@ -12,15 +12,17 @@ import "./App.css";
 
 import RootLayout from "src/layout/root_layout";
 
+import RestaurantMenuPage from "src/pages/restaurant_menu_page";
 import HomePage from "src/pages/home_page";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
+        <Route index element={<HomePage />} />
         <Route
           path="/restaurant/:userName/:tableNumber"
-          element={<HomePage />}
+          element={<RestaurantMenuPage />}
         />
       </Route>
     )
