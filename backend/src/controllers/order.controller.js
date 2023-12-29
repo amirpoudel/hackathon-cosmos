@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const {
     ORDER_STATUS,
     ORDER_PAYMENT_STATUS,
@@ -106,7 +107,7 @@ const getOrders = asyncHandler(async (req, res, next) => {
     const { status } = req.body;
 
     let findQuery = {
-        restaurantId,
+        restaurantId:new mongoose.Types.ObjectId(restaurantId),
     };
 
     if (status) {
@@ -320,7 +321,7 @@ const getDayTotalOrderAmount = asyncHandler(async (req, res, next) => {
     const orderAmount = await Order.aggregate([
         {
             $match: {
-                restaurantId: restaurantId,
+                restaurantId: new mongoose.Types.ObjectId(restaurantId),
                 createdAt: {
                     $gte: startOfDay(currentDate),
                     $lt: endOfDay(currentDate),
@@ -378,7 +379,7 @@ const getOrderStats = asyncHandler(async (req, res, next) => {
     const orderStats = await Order.aggregate([
         {
             $match: {
-                restaurantId,
+                restaurantId:new mongoose.Types.ObjectId(restaurantId),
             },
         },
         {
@@ -418,7 +419,7 @@ const getTotalOrderAmountPerItem = asyncHandler(async(req,res)=> {
     const totalSalesOrderByItem = await Order.aggregate([
         {
             $match: {
-                restaurantId,
+                restaurantId: new mongoose.Types.ObjectId(restaurantId),
             },
         },
         {

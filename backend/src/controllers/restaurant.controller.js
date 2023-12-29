@@ -38,7 +38,16 @@ const getRestaurant = asyncHandler(async (req,res)=>{
                 from: "users",  // Assuming the owner collection is named "users"
                 localField: "ownerId",
                 foreignField: "_id",
-                as: "owner"
+                as: "owner",
+                pipeline:[
+                    {
+                        $project:{
+                            _id:0,
+                            phone:1,
+                            email:1
+                        }
+                    }
+                ]
             }
         },
         {
@@ -51,7 +60,8 @@ const getRestaurant = asyncHandler(async (req,res)=>{
                 username: 1,
                 status: 1,
                 profileImage:1,
-                phone: "$owner.phone"
+                phone: "$owner.phone",
+                email: "$owner.email",
             }
         }
     ]);

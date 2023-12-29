@@ -28,17 +28,6 @@ app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 
 // Routes
-<<<<<<< HEAD
-const userRouter = require('./routes/user.route.js');
-const menuRouter = require('./routes/menu.route.js');
-const tableRouter = require('./routes/table.route.js');
-const orderRouter = require('./routes/order.route.js');
-
-app.use('/api/v1/user', userRouter);
-app.use('/api/v1/menu', menuRouter);
-app.use('/api/v1/table', tableRouter);
-app.use('/api/v1/order', orderRouter);
-=======
 const userRouter = require("./routes/user.route.js");
 const menuRouter = require("./routes/menu.route.js");
 const tableRouter = require("./routes/table.route.js");
@@ -50,7 +39,6 @@ app.use("/api/v1/menu", menuRouter);
 app.use("/api/v1/table", tableRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/restaurant",restaurantRouter);
->>>>>>> 500eb0d9b0109410ffc4c40ee5a4fdd0f33b0a49
 
 app.use(errorHandler);
 

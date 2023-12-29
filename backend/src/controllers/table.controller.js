@@ -4,6 +4,7 @@ const ApiResponse = require('../utils/ApiResponse');
 const asyncHandler = require('../utils/asyncHandler');
 const { TABLE_STATUS } = require('../constants');
 const { startOfDay, endOfDay } = require('date-fns');
+const { default: mongoose } = require('mongoose');
 
 const createTable = asyncHandler(async (req, res, next) => {
     const restaurantId = req.user.restaurantId;
@@ -77,7 +78,9 @@ const getTable = asyncHandler(async (req, res, next) => {
 
     const table = await Table.aggregate([
         {
-            $match: { restaurantId: restaurantId },
+            $match: { 
+                restaurantId: new mongoose.Types.ObjectId(restaurantId) 
+            },
         },
         {
             $lookup: {
