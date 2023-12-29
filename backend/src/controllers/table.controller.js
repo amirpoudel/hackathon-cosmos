@@ -125,7 +125,7 @@ const getTable = asyncHandler(async (req, res, next) => {
                     $sum: {
                         $cond: {
                             if: { $in: ["paid", "$orders.paymentStatus"] },
-                            then: "$orders.totalAmount",
+                            then: 0,//temp
                             else: 0,
                         },
                     },
