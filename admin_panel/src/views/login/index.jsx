@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -33,6 +33,8 @@ export default function LoginView() {
   const [showPassword, setShowPassword] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+
+  const isLoginLoading = useSelector((state) => state.auth.isLoginLoading);
 
   function handleLogin(e) {
     e.preventDefault();
@@ -127,7 +129,7 @@ export default function LoginView() {
               color="inherit"
               sx={{ my: 3 }}
             >
-              Login
+              {isLoginLoading ? 'Signing In...' : 'Sign In'}
             </Button>
           </Card>{' '}
         </Stack>

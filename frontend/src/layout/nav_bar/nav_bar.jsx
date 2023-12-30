@@ -6,9 +6,7 @@ import { fetchOrderStatusAsync } from "src/redux/navSlice";
 
 function NavBar() {
   const dispatch = useDispatch();
-  const orderedStatus = useSelector(
-    (state) => state.restaurantMenu.orderedStatus
-  );
+  const orderedStatus = useSelector((state) => state.nav.orderedStatus);
 
   useEffect(() => {
     dispatch(fetchOrderStatusAsync());

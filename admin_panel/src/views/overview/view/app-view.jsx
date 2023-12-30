@@ -72,7 +72,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Revenue"
-            total={appDetails?.totalAmount || ''}
+            total={appDetails?.totalAmount || '0'}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
@@ -81,7 +81,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Daily Revenue"
-            total={dailyRevenueDetails?.totalAmount}
+            total={dailyRevenueDetails?.totalAmount || '0'}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
           />

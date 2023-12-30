@@ -33,6 +33,8 @@ export default function RegisterView() {
   const dispatch = useDispatch();
   const [restaurantName, setRestaurantName] = useState('');
   const [restaurantUserName, setRestaurantUserName] = useState('');
+  const [restaurantProfileImage, setRestaurantProfileImage] = useState('');
+  const [imagePreview, setImagePreview] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [ownerName, setOwnerName] = useState('');
@@ -45,7 +47,20 @@ export default function RegisterView() {
   const theme = useTheme();
   const router = useRouter();
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    setRestaurantProfileImage(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleRegister = (e) => {
+    const formData = new FormData();
+
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -59,19 +74,20 @@ export default function RegisterView() {
         progress: undefined,
         theme: 'light',
       });
+      return;
     }
 
-    const data = {
-      restaurantName,
-      restaurantUserName,
-      ownerName,
-      ownerEmail,
-      ownerPhoneNumber,
-      password,
-      confirmPassword,
-    };
+    formData.append('restaurantName', restaurantName);
+    formData.append('restaurantUserName', restaurantUserName);
+    formData.append('ownerName', ownerName);
+    formData.append('ownerEmail', ownerEmail);
+    formData.append('ownerPhoneNumber', ownerPhoneNumber);
+    formData.append('password', password);
+    formData.append('confirmPassword', confirmPassword);
 
-    dispatch(registerRestaurantAsync(data)).then((res) => {
+    formData.append('restaurantProfileImage', restaurantProfileImage);
+
+    dispatch(registerRestaurantAsync(formData)).then((res) => {
       if (registerRestaurantAsync.fulfilled.match(res)) {
         router.push('/login');
       }
@@ -138,7 +154,31 @@ export default function RegisterView() {
                   onChange={(e) => setRestaurantUserName(e.target.value)}
                 />
               </Grid>
-            </Grid>{' '}
+              <Grid item xs={12} md={6}>
+                {' '}
+                <Typography variant="body1" sx={{ mb: 1, fontWeight: '500' }}>
+                  Upload Image
+                </Typography>
+                <TextField
+                  type="file"
+                  id="outlined-basic"
+                  label="Restaurant Image"
+                  variant="outlined"
+                  size="small"
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                  onChange={handleImageChange}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                {' '}
+                <img
+                  src={imagePreview}
+                  alt="Choose "
+                  style={{ width: '60px', height: '60px', borderRadius: '0.75rem' }}
+                />
+              </Grid>
+            </Grid>
             <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 Owner Info

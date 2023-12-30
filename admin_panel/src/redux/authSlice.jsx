@@ -63,10 +63,9 @@ export const loginRestaurantAsync = createAsyncThunk(
 // Restaurant Register
 export const registerRestaurantAsync = createAsyncThunk(
   'auth/registerRestaurantAsync',
-  async (data, { rejectWithValue }) => {
-    console.log(data);
+  async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BASE_URL}/user/register`, data);
+      const response = await axios.post(`${BASE_URL}/user/register`, formData);
       if (response.status === 200) {
         toast.success('🍜 Registration Success  !', {
           position: 'top-right',
@@ -83,7 +82,7 @@ export const registerRestaurantAsync = createAsyncThunk(
       }
     } catch (err) {
       const errorMessage = err?.response?.data?.message || 'Unable To Register';
-      toast.success(errorMessage, {
+      toast.error(errorMessage, {
         position: 'top-right',
         autoClose: 1200,
         hideProgressBar: false,

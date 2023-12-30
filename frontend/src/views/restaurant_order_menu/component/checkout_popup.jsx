@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import FoodCard from "src/component/cards/food_card";
+import FoodCard from "src/component/cards/food_card_order";
 import { useDispatch } from "react-redux";
 import {
   addOrderAsync,

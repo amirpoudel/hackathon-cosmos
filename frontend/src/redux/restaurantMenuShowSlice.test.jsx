@@ -14,10 +14,13 @@ const initialState = {
 
   isAddOrderLoading: false,
   addOrderError: null,
+
+  orderedStatus: "",
+  customerPhoneNumber: "",
 };
 
 export const fetchCategoryList = createAsyncThunk(
-  "restaurantMenu/fetchCategoryList",
+  "restaurantMenuShow/fetchCategoryList",
   async ({ userName, tableNumber }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
@@ -35,7 +38,7 @@ export const fetchCategoryList = createAsyncThunk(
 );
 
 export const addOrderAsync = createAsyncThunk(
-  "restaurantMenu/addOrderAsync",
+  "restaurantMenuShow/addOrderAsync",
   async ({ userName, tableNumber, data }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
@@ -64,10 +67,17 @@ export const addOrderAsync = createAsyncThunk(
   }
 );
 
-const restaurantMenuSlice = createSlice({
-  name: "restaurantMenu",
+const restaurantMenuShowSlice = createSlice({
+  name: "restaurantMenuShow",
   initialState,
-
+  reducers: {
+    setOrderedStatus: (state, action) => {
+      state.orderedStatus = action.payload;
+    },
+    setCustomerPhoneNumber: (state, action) => {
+      state.customerPhoneNumber = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCategoryList.pending, (state) => {
       state.isCategoryListLoading = true;
@@ -94,6 +104,6 @@ const restaurantMenuSlice = createSlice({
   },
 });
 export const { setCustomerPhoneNumber, setOrderedStatus } =
-  restaurantMenuSlice.actions;
+  restaurantMenuShowSlice.actions;
 
-export default restaurantMenuSlice.reducer;
+export default restaurantMenuShowSlice.reducer;

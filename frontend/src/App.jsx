@@ -12,7 +12,8 @@ import "./App.css";
 
 import RootLayout from "src/layout/root_layout";
 
-import RestaurantMenuPage from "src/pages/restaurant_menu_page";
+import RestaurantOrderMenuPage from "src/pages/restaurant/restaurant_order_menu_page";
+import RestaurantShowMenuPage from "./pages/restaurant/restaurant_show_menu_page";
 import HomePage from "src/pages/home_page";
 
 function App() {
@@ -20,10 +21,13 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
-        <Route
-          path="/restaurant/:userName/:tableNumber"
-          element={<RestaurantMenuPage />}
-        />
+        <Route path="restaurant">
+          <Route
+            path="order/:userName/:tableNumber"
+            element={<RestaurantOrderMenuPage />}
+          />
+          <Route path="show/:userName" element={<RestaurantShowMenuPage />} />
+        </Route>
       </Route>
     )
   );

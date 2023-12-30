@@ -3,6 +3,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   isOrderStatusLoading: false,
   orderedStatus: "",
+
+  orderedStatus: "",
+  customerPhoneNumber: "",
 };
 
 export const fetchOrderStatusAsync = createAsyncThunk(
@@ -28,7 +31,14 @@ export const fetchOrderStatusAsync = createAsyncThunk(
 export const navSlice = createSlice({
   name: "nav",
   initialState,
-  reducers: {},
+  reducers: {
+    setOrderedStatus: (state, action) => {
+      state.orderedStatus = action.payload;
+    },
+    setCustomerPhoneNumber: (state, action) => {
+      state.customerPhoneNumber = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrderStatusAsync.pending, (state) => {

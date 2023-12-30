@@ -22,10 +22,19 @@ export default function RestaurantCard({ restaurant }) {
           sx={{ backgroundSize: "cover" }}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ textTransform: "capitalize" }}
+          >
             {restaurant?.name || ""}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ textTransform: "capitalize" }}
+          >
             {restaurant?.userName}
           </Typography>
           <Typography variant="body2" color="text.secondary">

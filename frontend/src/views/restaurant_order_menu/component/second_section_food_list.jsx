@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Typography, Box } from "@mui/material";
 
-import FoodCard from "src/component/cards/food_card";
+import FoodCardOrder from "src/component/cards/food_card_order";
 
 function SecondSectionFoodList({
   selectedCategoryFoodList,
@@ -37,7 +37,7 @@ function SecondSectionFoodList({
               my: 1.5,
             }}
           >
-            <FoodCard
+            <FoodCardOrder
               itemId={foodItem?._id}
               imagePreview={foodItem?.imageLink || ""}
               description={foodItem?.description || ""}

@@ -19,7 +19,7 @@ const Transition = React.forwardRef((props, ref) => (
   <Slide direction="up" ref={ref} {...props} />
 ));
 
-function HomeView() {
+function RestaurantOrderMenuView() {
   const [selectedCategoryFoodList, setSelectedCategoryFoodList] = useState([]);
   const [openCheckout, setOpenCheckout] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
@@ -110,4 +110,4 @@ function HomeView() {
   );
 }
 
-export default HomeView;
+export default RestaurantOrderMenuView;

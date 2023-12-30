@@ -1,4 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+import { BASE_URL } from "src/config/base_url";
 
 const initialState = {
   isRestaurantListLoading: false,
@@ -10,14 +13,15 @@ export const fetchRestaurantListAsync = createAsyncThunk(
   "home/fetchRestaurantListAsync",
   async ({ searchQuery }, { rejectWithValue }) => {
     try {
-      console.log(searchQuery);
       const response = await axios.get(
-        `${BASE_URL}/restaurant?search${searchQuery}`
+        `${BASE_URL}/restaurant?search=${searchQuery}`
       );
+      console.log(response);
       if (response.status === 200) {
         return response.data;
       }
     } catch (err) {
+      console.log(err);
       const errorMessage = err?.response?.data?.message || "Could Not Load";
       return rejectWithValue(errorMessage);
     }
@@ -26,7 +30,6 @@ export const fetchRestaurantListAsync = createAsyncThunk(
 export const homeSlice = createSlice({
   name: "home",
   initialState,
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchRestaurantListAsync.pending, (state) => {
