@@ -293,20 +293,76 @@ const updateOrderPaymentStatus = asyncHandler(
 );
 
 const trackOrder = asyncHandler(async (req, res, next) => {
-    const { phoneNumber } = req.params;
-
+    const { restaurantUsername,phoneNumber } = req.params;
     if (!phoneNumber) {
         throw new ApiError(400, "Please Provide Phone Number");
     }
+    const restaurantId = await Restaurant.findOne({
+        username: restaurantUsername,
+    }).select("_id");
 
-    // Get the current date in the format 'YYYY-MM-DD'
-    const currentDate = new Date().toISOString().split('T')[0];
-
+    if(!restaurantId){
+        throw new ApiError(400,"Restaurant Not Found")
+    }
+   
     // Update the query to include the phone number and filter by today's date
-    const trackOrder = await Order.find({
-        phoneNumber: phoneNumber,
-        createdAt: { $gte: new Date(currentDate) }
-    })
+    // const trackOrder = await Order.find({
+    //     phoneNumber: phoneNumber,
+    //     createdAt: { $gte: new Date(currentDate) }
+    // })
+    const trackOrder = await Order.aggregate([
+        {
+            $match:{
+                restaurantId: new mongoose.Types.ObjectId(restaurantId),
+                phoneNumber:phoneNumber
+            }
+        },
+        {
+            $sort:{
+                createdAt:-1
+            }
+        },
+        {
+            $lookup:{
+                from:"tables",
+                localField:"tableId",
+                foreignField:"_id",
+                as:"table",
+                pipeline:[
+                    {
+                        $project:{
+                            _id:0,
+                            tableNumber:1
+                        }
+                    }
+                ]
+            },
+        },
+        {
+            $addFields:{
+                table:{
+                    $first:"$table"
+                }
+            }
+        },
+        {
+            $unwind:"$table"
+        },
+        {
+            $project:{
+                _id:1,
+                phoneNumber:1,
+                orderItems:1,
+                totalAmount:1,
+                orderNote:1,
+                status:1,
+                paymentStatus:1,
+                createdAt:1,
+                updatedAt:1,
+                tableNumber:"$table.tableNumber"
+            }
+        }
+    ])
 
     return res.status(200).json(new ApiResponse(200, trackOrder, "Order Found Successfully"));
 });

@@ -6,6 +6,7 @@ const { MenuCategory, MenuItem } = require('../models/menu.model');
 const {updateOnClodinary, uploadOnCloudinary, deleteFromCloudinary} = require("../utils/cloudinary");
 const { Restaurant } = require('../models/restaurant.model');
 const { Table } = require('../models/table.model');
+const { getMenu } = require('../services/menu.service');
 // Menu Category
 
 const checkMenuCategoryId = asyncHandler(async (req, res, next) => {
@@ -307,7 +308,7 @@ const deleteMenuItemImage = asyncHandler(async (req, res, next) => {
 
 
 
-const getMenu = asyncHandler(async (req, res, next) => {
+const getMenuHandler = asyncHandler(async (req, res, next) => {
     
     const {restaurantUsername,tableNumber} = req.params;
     console.log(restaurantUsername);
@@ -326,48 +327,25 @@ const getMenu = asyncHandler(async (req, res, next) => {
     }
     console.log("This is restaurant id",restaurantId);
 
-    let menu  = await MenuCategory.aggregate([
-        {
-            $match: {
-                restaurantId: restaurantId._id,
-            },          
-        },
-        {
-          $lookup: {
-            from: "menuitems",
-            localField: "_id",
-            foreignField: "categoryId",
-            as: "items",
-          },
-        },
-        {
-         $addFields:{
-           
-            itemsCount:{$size:"$items"}
+    let menu  = await getMenu(restaurantId._id);
 
-         }
-        },
-        {
-            $project:{
-                name:1,
-                description:1,
-                imageLink:1,
-                itemsCount:1,
-                items:{
-                    _id:1,
-                    name:1,
-                    description:1,
-                    price:1,
-                    imageLink:1,
-                    flags:1
-                }
-            }
-        }
-      ])
     console.log("This is Menu Aggregation",menu)
     return res.status(200).json(new ApiResponse(200, menu, 'Successfully fetched menu'))
 
 });
+
+const getRestaurantMenuHandler = asyncHandler(async(req,res)=>{
+    const {restaurantUsername} = req.params;
+    const restaurantId = await Restaurant.findOne({username:restaurantUsername}).select("_id");
+    if(!restaurantId){
+        throw new ApiError(400, 'Restaurant Username is invalid');
+    }
+    let menu = await getMenu(restaurantId._id);
+    if(menu.length === 0){
+        throw new ApiError(400, 'Menu is empty');
+    }
+    return res.status(200).json(new ApiResponse(200, menu, 'Successfully fetched menu'))
+})
 
 
 
@@ -382,7 +360,8 @@ const menu = {
     updatedMenuItemImage,
     deleteMenuItem,
     deleteMenuItemImage,
-    getMenu,
+    getMenuHandler,
+    getRestaurantMenuHandler
    
 
 }

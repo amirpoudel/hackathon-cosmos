@@ -7,6 +7,17 @@ const {TABLE_STATUS} = require("../constants");
 const { getLimitAndOffset } = require("../utils/helperFunctions");
 
 
+const checkRestaurantUsername = asyncHandler(async (req,res,next)=>{
+    const {restaurantUsername} = req.params;
+    console.log("this is restaurant username",restaurantUsername);
+    const restaurant = await Restaurant.findOne({username:restaurantUsername});
+    if(!restaurant){
+        throw new ApiError(400,"Restaurant Not Found");
+    }
+    req.restaurant = restaurant;
+    next();
+})
+
 const getRestaurant = asyncHandler(async (req,res)=>{
     const [limit,offset] = getLimitAndOffset(req);
     let search = req.query?.search || "";
@@ -75,6 +86,7 @@ const getRestaurant = asyncHandler(async (req,res)=>{
 })
 
 const restaurant = {
+    checkRestaurantUsername,
     getRestaurant
 }
 

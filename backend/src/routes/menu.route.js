@@ -26,7 +26,8 @@ router.route("/item/image")
     .delete(verifyJWT,verifyRole(ROLES.ADMIN),menu.deleteMenuItemImage)
 
 
-router.route("/:restaurantUsername/:tableNumber").get(menu.getMenu);
+router.route("/:restaurantUsername/:tableNumber").get(menu.getMenuHandler);
+router.route("/:restaurantUsername").get(menu.getRestaurantMenuHandler)
 
 
 

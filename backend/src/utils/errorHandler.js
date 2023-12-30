@@ -23,6 +23,11 @@ const errorHandler = (err, req, res, next) => {
         // Handle mongodb errors
         return res.status(400).json({ success: false, error: err.message, errors: err.errors });
     }
+    if(err instanceof Error){
+        // Handle other errors - customs error 
+        return res.status(400).json({ success: false, error: err.message, errors: err.errors });
+    }
+    
 
    
     // Handle other errors
