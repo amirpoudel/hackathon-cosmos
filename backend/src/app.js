@@ -17,10 +17,12 @@ app.use(
             'http://localhost:3030',
             'http://localhost:5173',
             'http://127.0.0.1:5173',
+            'https://6eee-103-163-182-154.ngrok-free.app'
         ],
         credentials: true,
     })
 );
+
 app.use(cookieParser());
 
 app.use(express.json({ limit: '16kb' }));

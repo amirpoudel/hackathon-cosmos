@@ -46,6 +46,11 @@ const orderSchema = new mongoose.Schema({
     status:{
         type:String,
     },
+    paymentId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Payment',
+        default:null
+    }
 },{
     timestamps:true
 

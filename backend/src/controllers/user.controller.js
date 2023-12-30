@@ -25,7 +25,7 @@ const registerOwnerAndRestaurant = asyncHandler(async (req,res,next)=>{
     // restaurantImage
     let restaurantImagePath = req.file?.path;
     console.log("This is restaurant image path",restaurantImagePath);
-        
+
     const restaurant = await  Restaurant.create({
         name:restaurantName,
         username:restaurantUserName,
@@ -96,12 +96,7 @@ const loginUser = asyncHandler(async (req, res) => {
             secure: false, // Change this to false for local development
             sameSite: 'Lax', // Change to 'None' in production with HTTPS
           };
-          
-          
 
-    console.log("User Logged In Successfully",userResponse)
-    console.log("This is access token",accessToken)
-    console.log("This is refresh token",refreshToken)
     return res
         .status(200)
         .cookie('refreshToken', refreshToken, options)
@@ -116,6 +111,8 @@ const loginUser = asyncHandler(async (req, res) => {
             )
         );
 });
+
+
 
 
 
