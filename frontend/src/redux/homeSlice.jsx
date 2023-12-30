@@ -5,7 +5,17 @@ import { BASE_URL } from "src/config/base_url";
 
 const initialState = {
   isRestaurantListLoading: false,
-  restaurantList: [],
+  restaurantList: [
+    {
+      _id: "658f299cdeb6b9557adfeed3",
+      name: "yes cafe",
+      username: "yescafe",
+      status: "active",
+      profileImage:
+        "https://res.cloudinary.com/dekoq3dmf/image/upload/v1703881117/nmnbu4lwzvphgu7uajhi.jpg",
+      phone: "9899999999",
+    },
+  ],
   restaurantListError: null,
 };
 

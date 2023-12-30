@@ -4,6 +4,10 @@ import axios from "axios";
 import { BASE_URL } from "src/config/base_url";
 
 const initialState = {
+  isShowCategoryListLoading: false,
+  showCategoryList: [],
+  showCategoryListError: null,
+
   isCategoryListLoading: false,
   categoryListError: null,
   categoryList: [],
@@ -15,6 +19,22 @@ const initialState = {
   isAddOrderLoading: false,
   addOrderError: null,
 };
+
+export const fetchShowCategoryList = createAsyncThunk(
+  "restaurantMenu/fetchShowCategoryList",
+  async ({ userName }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/menu/${userName}`);
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      const errorMessage =
+        err?.response?.data?.error || "Unable to fetch category";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 export const fetchCategoryList = createAsyncThunk(
   "restaurantMenu/fetchCategoryList",
@@ -80,6 +100,18 @@ const restaurantMenuSlice = createSlice({
     builder.addCase(fetchCategoryList.rejected, (state, action) => {
       state.isCategoryListLoading = false;
       state.categoryListError = action.payload;
+    });
+    builder.addCase(fetchShowCategoryList.pending, (state) => {
+      state.isShowCategoryListLoading = true;
+    });
+    builder.addCase(fetchShowCategoryList.fulfilled, (state, action) => {
+      state.showCategoryList = action.payload?.data;
+      // state.filteredCategoryList = action.payload?.data;
+      state.isShowCategoryListLoading = false;
+    });
+    builder.addCase(fetchShowCategoryList.rejected, (state, action) => {
+      state.isShowCategoryListLoading = false;
+      state.showCategoryListError = action.payload;
     });
 
     builder.addCase(addOrderAsync.pending, (state) => {

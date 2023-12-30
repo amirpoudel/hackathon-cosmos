@@ -10,10 +10,15 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function RestaurantCard({ restaurant }) {
+export default function RestaurantCard({
+  restaurant,
+  goToShowRestaurantMenuPage,
+}) {
   return (
     <Card sx={{ maxWidth: 300, minWidth: 250 }}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => goToShowRestaurantMenuPage(restaurant?.username)}
+      >
         <CardMedia
           component="img"
           height="140"
@@ -35,7 +40,7 @@ export default function RestaurantCard({ restaurant }) {
             color="text.secondary"
             sx={{ textTransform: "capitalize" }}
           >
-            {restaurant?.userName}
+            {restaurant?.username}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {restaurant?.email}

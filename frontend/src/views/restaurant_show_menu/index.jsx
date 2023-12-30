@@ -4,10 +4,6 @@ import { Box, Container, Slide } from "@mui/material";
 import FirstSectionCategories from "./component/first_section_categories";
 import SecondSectionFoodList from "./component/second_section_food_list";
 
-const Transition = React.forwardRef((props, ref) => (
-  <Slide direction="up" ref={ref} {...props} />
-));
-
 function RestaurantShowMenuView() {
   const [selectedCategoryFoodList, setSelectedCategoryFoodList] = useState([]);
 

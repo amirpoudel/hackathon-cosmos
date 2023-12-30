@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -15,8 +16,17 @@ import RootLayout from "src/layout/root_layout";
 import RestaurantOrderMenuPage from "src/pages/restaurant/restaurant_order_menu_page";
 import RestaurantShowMenuPage from "./pages/restaurant/restaurant_show_menu_page";
 import HomePage from "src/pages/home_page";
+import useLocalStorage from "./hooks/useLocalStorage";
+import { setCustomerPhoneNumber } from "./redux/navSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const [myValue] = useLocalStorage("customerPhoneNumber", "");
+
+  useEffect(() => {
+    dispatch(setCustomerPhoneNumber(myValue));
+  }, []);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>

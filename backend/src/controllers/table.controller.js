@@ -5,6 +5,7 @@ const asyncHandler = require('../utils/asyncHandler');
 const { TABLE_STATUS } = require('../constants');
 const { startOfDay, endOfDay } = require('date-fns');
 const { default: mongoose } = require('mongoose');
+const { getTable, getAllTableData } = require('../services/table.service');
 
 const createTable = asyncHandler(async (req, res, next) => {
     const restaurantId = req.user.restaurantId;
@@ -71,81 +72,12 @@ const deleteTable = asyncHandler(async (req, res, next) => {
         .json(new ApiResponse(200, table, 'Table deleted successfully'));
 });
 
-const getTable = asyncHandler(async (req, res, next) => {
+const getTableHandler = asyncHandler(async (req, res, next) => {
     const restaurantId = req.user.restaurantId;
     
     const currentDate = new Date(); // Current date
 
-    const table = await Table.aggregate([
-        {
-            $match: { 
-                restaurantId: new mongoose.Types.ObjectId(restaurantId) 
-            },
-        },
-        {
-            $lookup: {
-                from: "orders",
-                let: { tableId: "$_id" },
-                pipeline: [
-                    {
-                        $match: {
-                            $expr: {
-                                $and: [
-                                    { $eq: ["$tableId", "$$tableId"] },
-                                    { $gte: ["$createdAt", startOfDay(currentDate)] },
-                                    { $lt: ["$createdAt", endOfDay(currentDate)] },
-                                ],
-                            },
-                        },
-                    },
-                ],
-                as: "orders",
-            },
-        },
-        {
-            $lookup: {
-                from: "restaurants",
-                localField: "restaurantId",
-                foreignField: "_id",
-                as: "restaurantDetails",
-            },
-        },
-        {
-            $unwind: {
-                path: "$restaurantDetails",
-                preserveNullAndEmptyArrays: true,
-            },
-        },
-        {
-            $project: {
-                _id: 1,
-                restaurantId: 1,
-                tableNumber: 1,
-                restaurantUsername: "$restaurantDetails.username",
-                orderCount: { $size: { $ifNull: ["$orders", []] } },
-                totalAmount: { $sum: "$orders.totalAmount" },
-                paidAmount: {
-                    $sum: {
-                        $cond: {
-                            if: { $in: ["paid", "$orders.paymentStatus"] },
-                            then: 0,//temp
-                            else: 0,
-                        },
-                    },
-                },
-                unpaidAmount: {
-                    $sum: {
-                        $cond: {
-                            if: { $in: ["unpaid", "$orders.paymentStatus"] },
-                            then: "$orders.totalAmount",
-                            else: 0,
-                        },
-                    },
-                },
-                //orders: "$orders",
-            },
-        },
-    ]);
+    const table = await getAllTableData(restaurantId, currentDate);
 
     if (table.length === 0) {
         throw new ApiError(400, 'Table not found');
@@ -160,7 +92,7 @@ const table = {
     createTable,
     updateTable,
     deleteTable,
-    getTable,
+    getTableHandler,
 };
 
 module.exports = table;

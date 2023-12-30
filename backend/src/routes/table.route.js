@@ -9,7 +9,7 @@ const table = require("../controllers/table.controller");
 router.route("/")
     .post(verifyJWT,verifyRole(ROLES.ADMIN),table.createTable)
     .patch(verifyJWT,verifyRole(ROLES.ADMIN),table.updateTable)
-    .get(verifyJWT,verifyRole(ROLES.ADMIN),table.getTable);
+    .get(verifyJWT,verifyRole(ROLES.ADMIN),table.getTableHandler);
 
 
 router.route("/:tableId").delete(verifyJWT,verifyRole(ROLES.ADMIN),table.deleteTable);

@@ -43,7 +43,7 @@ export const loginRestaurantAsync = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Unable To Login';
+      const errorMessage = err?.response?.data?.error || 'Unable To Login';
       toast.error(errorMessage, {
         position: 'top-right',
         autoClose: 1200,
@@ -81,7 +81,7 @@ export const registerRestaurantAsync = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Unable To Register';
+      const errorMessage = err?.response?.data?.error || 'Unable To Register';
       toast.error(errorMessage, {
         position: 'top-right',
         autoClose: 1200,

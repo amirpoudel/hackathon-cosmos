@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   isOrderStatusLoading: false,
-  orderedStatus: "",
 
   orderedStatus: "",
   customerPhoneNumber: "",
@@ -36,6 +35,7 @@ export const navSlice = createSlice({
       state.orderedStatus = action.payload;
     },
     setCustomerPhoneNumber: (state, action) => {
+      console.log("action", action);
       state.customerPhoneNumber = action.payload;
     },
   },
@@ -54,6 +54,6 @@ export const navSlice = createSlice({
   },
 });
 
-// export const { increment } = navSlice.actions;
+export const { setCustomerPhoneNumber, setOrderedStatus } = navSlice.actions;
 
 export default navSlice.reducer;

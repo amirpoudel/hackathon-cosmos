@@ -30,7 +30,7 @@ export const fetchCategoryListAsync = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Something went wrong';
+      const errorMessage = err?.response?.data?.error || 'Something went wrong';
       return rejectWithValue(errorMessage);
     }
     return '';
@@ -49,7 +49,7 @@ export const fetchFoodItemListAsync = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Something went wrong';
+      const errorMessage = err?.response?.data?.error || 'Something went wrong';
       return rejectWithValue(errorMessage);
     }
     return '';
@@ -78,7 +78,7 @@ export const addNewCategoryAsync = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Failed to add category';
+      const errorMessage = err?.response?.data?.error || 'Failed to add category';
       toast.error(`🍜 ${errorMessage}`, {
         position: 'top-right',
         autoClose: 1200,
@@ -115,7 +115,7 @@ export const editCategoryAsync = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Failed to edit category';
+      const errorMessage = err?.response?.data?.error || 'Failed to edit category';
       toast.error(`🍜 ${errorMessage}`, {
         position: 'top-right',
         autoClose: 1200,
@@ -156,7 +156,7 @@ export const addNewFoodItem = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || 'Failed to add item';
+      const errorMessage = err?.response?.data?.error || 'Failed to add item';
       toast.error(`🍜 ${errorMessage}`, {
         position: 'top-right',
         autoClose: 1200,

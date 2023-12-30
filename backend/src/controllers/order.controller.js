@@ -106,9 +106,7 @@ const getOrders = asyncHandler(async (req, res, next) => {
     const restaurantId = req.user.restaurantId;
     const { status } = req.body;
 
-    let findQuery = {
-        restaurantId:new mongoose.Types.ObjectId(restaurantId),
-    };
+    
 
     if (status) {
         if (!Object.values(ORDER_STATUS).includes(status)) {
@@ -119,7 +117,7 @@ const getOrders = asyncHandler(async (req, res, next) => {
 
     const orders = await Order.aggregate([
         {
-            $match: findQuery,
+            $match: {restaurantId:new mongoose.Types.ObjectId(restaurantId)},
         },
         {
             $lookup: {

@@ -14,9 +14,6 @@ const initialState = {
 
   isAddOrderLoading: false,
   addOrderError: null,
-
-  orderedStatus: "",
-  customerPhoneNumber: "",
 };
 
 export const fetchCategoryList = createAsyncThunk(
@@ -70,14 +67,7 @@ export const addOrderAsync = createAsyncThunk(
 const restaurantMenuShowSlice = createSlice({
   name: "restaurantMenuShow",
   initialState,
-  reducers: {
-    setOrderedStatus: (state, action) => {
-      state.orderedStatus = action.payload;
-    },
-    setCustomerPhoneNumber: (state, action) => {
-      state.customerPhoneNumber = action.payload;
-    },
-  },
+
   extraReducers: (builder) => {
     builder.addCase(fetchCategoryList.pending, (state) => {
       state.isCategoryListLoading = true;
