@@ -35,12 +35,16 @@ const menuRouter = require('./routes/menu.route.js');
 const tableRouter = require('./routes/table.route.js');
 const orderRouter = require('./routes/order.route.js');
 const restaurantRouter = require('./routes/restaurant.route.js');
+const taskRouter = require('./routes/task.route.js');
 
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/menu', menuRouter);
 app.use('/api/v1/table', tableRouter);
 app.use('/api/v1/order', orderRouter);
 app.use('/api/v1/restaurant', restaurantRouter);
+app.use('/api/v1/task', taskRouter);
+
+
 
 app.use(errorHandler);
 

@@ -60,14 +60,44 @@ async function getAllTableData(restaurantId) {
         {
             $project: {
                 tableNumber: 1,
-                orderCount: { $size: '$orders' },
+                totalOrder: { $size: '$orders' },
                 totalAmount: { $sum: '$orders.totalAmount' },
-                paidAmount:{
-                    $first:'$orders.totalAmount'
+                paidAmount: {
+                    $reduce: {
+                        input: '$orders',
+                        initialValue: 0,
+                        in: {
+                            $add: [
+                                '$$value',
+                                {
+                                    $cond: {
+                                        if: { $eq: ['$$this.paymentStatus', 'paid'] },
+                                        then: '$$this.totalAmount',
+                                        else: 0,
+                                    },
+                                },
+                            ],
+                        },
+                    },
                 },
-
-                unpaidAmount: { $arrayElemAt: ['$orders.totalAmount', 1] },
-               // orders: 1,
+                unpaidAmount: {
+                    $reduce: {
+                        input: '$orders',
+                        initialValue: 0,
+                        in: {
+                            $add: [
+                                '$$value',
+                                {
+                                    $cond: {
+                                        if: { $eq: ['$$this.paymentStatus', 'unpaid'] },
+                                        then: '$$this.totalAmount',
+                                        else: 0,
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                },
             },
         },
     ];
@@ -76,6 +106,7 @@ async function getAllTableData(restaurantId) {
 
     return result;
 }
+
 
 
 
