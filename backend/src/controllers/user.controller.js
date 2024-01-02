@@ -113,12 +113,23 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 
+const validateToken = asyncHandler(async (req, res) => {
+    const user = req.user;
+    const userResponse = user
+        .toObject()
+        .excludeProperties(['password', 'refreshToken', 'updatedAt','restaurantId']);
+    return res.status(200).json(
+        new ApiResponse(200, userResponse, 'Valid Token')
+    );
+});
+
 
 
 
 const user = {
     registerOwnerAndRestaurant,
-    loginUser
+    loginUser,
+    validateToken
 }
 module.exports = user;
 

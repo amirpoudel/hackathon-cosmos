@@ -8,7 +8,10 @@ async function createTask(restaurantId, title) {
 
 
 async function getTasks(restaurantId, condition = {}){
-    return await Task.find({restaurantId,...condition});
+    return await Task.aggregate([
+        { $match: { restaurantId, isCompleted: false, ...condition } },
+        { $unionWith: { coll: 'tasks', pipeline: [{ $match: { restaurantId, isCompleted: true, ...condition } }] } }
+    ]);
 }
 
 async function updateTaskStatus(restaurantId,taskId,isCompleted){
