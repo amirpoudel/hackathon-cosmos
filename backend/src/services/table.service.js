@@ -60,7 +60,8 @@ async function getAllTableData(restaurantId) {
         {
             $project: {
                 tableNumber: 1,
-                totalOrder: { $size: '$orders' },
+                //totalOrder: { $size: '$orders' },
+                orderCount:{$size:'$orders'},
                 totalAmount: { $sum: '$orders.totalAmount' },
                 paidAmount: {
                     $reduce: {
