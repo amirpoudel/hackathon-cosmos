@@ -61,7 +61,7 @@ const registerOwnerAndRestaurant = asyncHandler(async (req,res,next)=>{
     restaurant.ownerId = owner._id;
     restaurant.save();
 
-    return res.status(200).json(new ApiResponse(200,[],"Successfully Register")) 
+    return res.status(200).json(new ApiResponse(200,owner,"Successfully Register")) 
 
 })
 

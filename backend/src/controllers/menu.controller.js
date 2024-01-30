@@ -153,7 +153,9 @@ const createMenuItem = asyncHandler(async (req, res, next) => {
                 console.log('Item image uploaded successfully');
                 console.log(itemResponse);
             })
-            .catch((error) => {});
+            .catch((error) => {
+    
+            });
     }
 
     return res
