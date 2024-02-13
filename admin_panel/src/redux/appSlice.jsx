@@ -11,6 +11,9 @@ const initialState = {
 
   isOrderStatsLoading: false,
   orderStatsDetails: [],
+
+  isTaskListLoading: false,
+  taskList: [],
 };
 
 export const fetchAppViewAsync = createAsyncThunk(
@@ -50,7 +53,7 @@ export const fetchOrderStatsAsync = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${BASE_URL}/order/totalSales`, { withCredentials: true });
-      console.log("this is sales",response)
+      console.log('this is sales', response);
       if (response.status === 200) {
         return response.data;
       }
@@ -60,6 +63,22 @@ export const fetchOrderStatsAsync = createAsyncThunk(
       return rejectWithValue(errorMessage);
     }
     return '';
+  }
+);
+
+export const fetchTaskListAsync = createAsyncThunk(
+  'app/fetchTaskListAsync',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/tasks`, { withCredentials: true });
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      const errorMessage = err?.response?.data?.error || 'No Task';
+      return rejectWithValue(errorMessage);
+    }
+    return undefined;
   }
 );
 
@@ -98,6 +117,17 @@ export const appSlice = createSlice({
       })
       .addCase(fetchOrderStatsAsync.rejected, (state) => {
         state.isOrderStatsLoading = false;
+      })
+      .addCase(fetchTaskListAsync.pending, (state, action) => {
+        state.isTaskListLoading = true;
+      })
+      .addCase(fetchTaskListAsync.fulfilled, (state, action) => {
+        state.isTaskListLoading = false;
+
+        state.taskList = action?.payload?.data;
+      })
+      .addCase(fetchTaskListAsync.rejected, (state) => {
+        state.isTaskListLoading = false;
       });
   },
 });

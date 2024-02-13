@@ -14,7 +14,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function AnalyticsTasks({ title, subheader, list, ...other }) {
+export default function AnalyticsTasks({ title, list, ...other }) {
   const [selected, setSelected] = useState(['2']);
 
   const handleClickComplete = (taskId) => {
@@ -27,7 +27,7 @@ export default function AnalyticsTasks({ title, subheader, list, ...other }) {
 
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} />
+      <CardHeader title={title}>create task</CardHeader>
 
       {list.map((task) => (
         <TaskItem

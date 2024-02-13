@@ -17,6 +17,7 @@ app.use(
             'http://localhost:3030',
             'http://localhost:5173',
             'http://127.0.0.1:5173',
+            'http://127.0.0.1:3030',
             'https://6eee-103-163-182-154.ngrok-free.app',
         ],
         credentials: true,
@@ -43,8 +44,6 @@ app.use('/api/v1/table', tableRouter);
 app.use('/api/v1/order', orderRouter);
 app.use('/api/v1/restaurant', restaurantRouter);
 app.use('/api/v1/task', taskRouter);
-
-
 
 app.use(errorHandler);
 

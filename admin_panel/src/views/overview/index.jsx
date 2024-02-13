@@ -12,12 +12,12 @@ import {
   fetchOrderStatsAsync,
 } from 'src/redux/appSlice';
 
-import AppTasks from '../app-tasks';
+import AppTasks from './component/app-tasks';
 // import AppNewsUpdate from '../app-news-update';
 // import AppOrderTimeline from '../app-order-timeline';
-import AppCurrentVisits from '../app-current-visits';
-import AppWebsiteVisits from '../app-website-visits';
-import AppWidgetSummary from '../app-widget-summary';
+import AppCurrentVisits from './component/app-current-visits';
+import AppWebsiteVisits from './component/app-website-visits';
+import AppWidgetSummary from './component/app-widget-summary';
 
 // import AppTrafficBySite from '../app-traffic-by-site';
 // import AppCurrentSubject from '../app-current-subject';

@@ -123,7 +123,7 @@ export default function SecondTableList() {
                     <UserTableRow
                       key={row._id}
                       tableNumber={row.tableNumber}
-                      orderCount={row.orderCount}
+                      orderCount={row.totalOrder}
                       paidAmount={row.paidAmount}
                       unpaidAmount={row.unpaidAmount}
                       totalAmount={row.totalAmount}

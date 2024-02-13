@@ -10,7 +10,9 @@ const initialState = {
   userPhone: '',
 
   isAuthenticated: false,
-  role: '',
+  role: 'admin',
+
+  isCheckAuthLoading: true,
 
   isLoginLoading: false,
   loginError: null,
@@ -20,6 +22,23 @@ const initialState = {
 
   isLogoutLoading: false,
 };
+
+// CHECK IF RESTAURANT IS LOGGEND IN OR NOT
+export const checkAuthAsync = createAsyncThunk(
+  'auth/checkAuthAsync',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/user/isLoggedIn`, { withCredentials: true });
+      if (response.status) {
+        return response?.data;
+      }
+    } catch (err) {
+      const errorMessage = err?.data?.error || 'Not Logged In';
+      return rejectWithValue(errorMessage);
+    }
+    return undefined;
+  }
+);
 
 // Restaurant LOGIN
 export const loginRestaurantAsync = createAsyncThunk(
@@ -138,6 +157,24 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(checkAuthAsync.pending, (state, action) => {
+        state.isCheckAuthLoading = true;
+      })
+      .addCase(checkAuthAsync.fulfilled, (state, action) => {
+        const userData = action.payload?.data?.user;
+        if (userData) {
+          state.isCheckAuthLoading = false;
+          state.isAuthenticated = true;
+          state.role = userData?.role;
+          state.userName = userData?.name;
+          state.userEmail = userData?.email;
+          state.userPhone = userData?.phone;
+        }
+      })
+      .addCase(checkAuthAsync.rejected, (state, action) => {
+        state.isCheckAuthLoading = false;
+        state.loginError = action.payload;
+      })
       .addCase(loginRestaurantAsync.pending, (state, action) => {
         state.isLoginLoading = true;
       })

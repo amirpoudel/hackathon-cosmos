@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'src/global.css';
 
 import DashboardLayout from './layouts/dashboard';
+import PrivateRoute from './routes/private_route';
+import RootLayout from './layouts/root/root_layout';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const TablePage = lazy(() => import('src/pages/table'));
@@ -25,16 +27,24 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 // ----------------------------------------------------------------------
 
+const ROLES = {
+  ADMIN: 'admin',
+};
+
 export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<DashboardLayout />}>
-        <Route index element={<IndexPage />} />
-        <Route path="/itemlist" element={<ItemListPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/menu" element={<MenuPage />} />
-        <Route path="/table" element={<TablePage />} />
-        <Route path="/order" element={<OrderPage />} />
+      <Route path="/" element={<RootLayout />}>
+        <Route element={<PrivateRoute allowedRoles={[ROLES.ADMIN]} />}>
+          <Route path="/" element={<DashboardLayout />}>
+            <Route index element={<IndexPage />} />
+            <Route path="/itemlist" element={<ItemListPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/menu" element={<MenuPage />} />
+            <Route path="/table" element={<TablePage />} />
+            <Route path="/order" element={<OrderPage />} />
+          </Route>
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/404" element={<Page404 />} />
