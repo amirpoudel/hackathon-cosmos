@@ -21,11 +21,11 @@ import { setCustomerPhoneNumber } from "./redux/navSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const [myValue] = useLocalStorage("customerPhoneNumber", "");
+  const [customerPhoneNumberLocal] = useLocalStorage("customerPhoneNumber", "");
 
   useEffect(() => {
-    dispatch(setCustomerPhoneNumber(myValue));
-  }, []);
+    dispatch(setCustomerPhoneNumber(customerPhoneNumberLocal));
+  }, [dispatch]);
 
   const router = createBrowserRouter(
     createRoutesFromElements(

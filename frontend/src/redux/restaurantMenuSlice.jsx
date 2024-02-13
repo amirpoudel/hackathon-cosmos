@@ -106,7 +106,8 @@ const restaurantMenuSlice = createSlice({
     });
     builder.addCase(fetchShowCategoryList.fulfilled, (state, action) => {
       state.showCategoryList = action.payload?.data;
-      // state.filteredCategoryList = action.payload?.data;
+      state.categoryList = action.payload?.data;
+      state.filteredCategoryList = action.payload?.data;
       state.isShowCategoryListLoading = false;
     });
     builder.addCase(fetchShowCategoryList.rejected, (state, action) => {

@@ -22,6 +22,7 @@ import {
   setCustomerPhoneNumber,
 } from "src/redux/restaurantMenuSlice";
 import { useParams } from "react-router-dom";
+import useLocalStorage from "src/hooks/useLocalStorage";
 
 const Transition = React.forwardRef((props, ref) => (
   <Slide direction="up" ref={ref} {...props} />
@@ -31,7 +32,8 @@ function CheckoutPopup({ checkedItems, setCheckedItems }) {
   const dispatch = useDispatch();
   const { userName } = useParams();
   const { tableNumber } = useParams();
-
+  const [customerPhoneNumberLocal, setCustomerPhoneNumberLocal] =
+    useLocalStorage("customerPhoneNumber");
   const [openUserPopup, setOpenUserPopup] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [orderNote, setOrderNote] = useState("");

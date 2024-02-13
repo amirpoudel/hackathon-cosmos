@@ -11,7 +11,6 @@ export const fetchOrderStatusAsync = createAsyncThunk(
   "nav/fetchOrderStatusAsync",
   async (_, { rejectWithValue }) => {
     try {
-      console.log("came here");
       const response = await axios.get(
         `${BASE_URL}/order/track/${initialState.customerPhoneNumber}`
       );
